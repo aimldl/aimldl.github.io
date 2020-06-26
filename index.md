@@ -4,6 +4,6 @@
 
 
 
-## Selected Publication from the [aimldl repo](https://github.com/aimldl)
+**Selected Publication from the [aimldl repo](https://github.com/aimldl)**
 
 Kubeflow, 2020-06-26 (Fri)
