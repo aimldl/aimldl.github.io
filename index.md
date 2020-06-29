@@ -1,9 +1,30 @@
-# 
+* Draft: 2020-06-29 (Mon)
 
-<img src="images/aimldl-profile-rabbit_and_turtle-2020-06-26_resized.png" align="left">
+# Kubeflow Tutorial
+
+1. Set up the environment
+
+   Install Ubuntu Linux (18.04) as the Operating System (OS).
+
+   Install the NVIDIA Display Driver.
+
+   ```bash
+   $ sudo ubuntu-drivers autoinstall
+   $ reboot
+   ```
+
+   Verify the installation.
+
+   ```bash
+   $ nvidia-smi
+   ```
+
+   For details, refer to [Install NVIDIA Graphics Card Driver on Ubuntu Automatically](../technical_skills/computing_environments/gpgpu/how_to/install_nvidia_graphics_card_driver_automatically.md).
+
+2. Install Kubernetes
 
 
 
-**Selected Publication from the [aimldl repo](https://github.com/aimldl)**
+3. Kubeflow 설치
 
-Kubeflow, 2020-06-26 (Fri)
+ 
