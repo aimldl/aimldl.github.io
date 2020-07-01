@@ -80,9 +80,9 @@ $ sudo apt update
 
 쿠버네티스 공식 문서 ([컨테이너 런타임](https://kubernetes.io/ko/docs/setup/production-environment/container-runtimes/))에서는 Docker와 CRI-O 의 설치 방법을 설명합니다. 쿠버네티스는 개발 초기에는 런타임 프로그램으로 Docker를 사용했고, CRI-O는 Docker의 단점을 극복하여 인기가 상승하고 있는 컨테이너 런타임입니다. 
 
-#### Docker 설치하기
+여기서는 Docker의 설치만 다룹니다. 설치 과정은 일반적인 Docker 설치 과정과 동일합니다. 쿠버네티스를 설치하고자 하는 모든 컴퓨터 (마스터와 모든 워커 노드)에 먼저 설치해야 합니다.
 
-여기서는 Docker의 설치만 다룹니다. 설치 과정은 일반적인 Docker 설치 과정과 동일합니다. 
+#### Step 1. Docker 설치하기
 
 여기까지는 앞에 sudo 를 붙이는 경우도 설명을 합니다만, 앞으로는 root계정으로 명령어를 실행할 것을 권장합니다. 앞으로는 root계정으로 로그인한 것을 가정합니다.
 
@@ -188,12 +188,36 @@ EOF
 $ sudo mv daemon.json /etc/docker/
 ```
 
+#### Step 2. Docker 설치 여부 확인하기
+
+마스터에서 확인하기
+
+```bash
+$ hostname
+k8smaster-gpu-desktop
+$ docker --version
+Docker version 19.03.12, build 48a66213fe
+$
+```
+
+워커 노드에서 확인하기
+
+```bash
+$ hostname
+k8snode-01-gpu-desktop
+$ docker --version
+Docker version 19.03.11, build 42e35e61f3
+$
+```
+
+거의 같은 시간에 설치했지만 워커 노트에 설치한 Docker 의 마이너 버전이 하나 낮네요. 큰 문제는 없으므로 일단 넘어갑니다.
+
 ## 배포 툴을 이용해서 쿠버네티스 설치하기
 
 쿠버네티스 아래의 배포 툴 (Deployment Tool) 중 하나를 선택해서 설치합니다.
 
 * kubeadm
-* kops [Kops로 쿠버네티스 설치하기](https://kubernetes.io/ko/docs/setup/production-environment/tools/kops/)
+* kops
 * kubespray
 
 이 문서에서는 kubeadm을 이용해서 로컬 머신에 쿠버네티스를 설치하는 과정을 설명합니다. kops와 kubespray는 퍼블릭 클라우드에 쿠버네티스 설치를 도와주는 툴이므로 쓰지 않았습니다.
@@ -221,7 +245,9 @@ $ sudo mv daemon.json /etc/docker/
   * [kubeadm로 컨트롤 플레인 사용자 정의하기](https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/control-plane-flags/) / [Customizing control plane configuration with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
   * kubeadm로 클러스터의 각 kubelet 설정하기 / [Configuring each kubelet in your cluster using kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)
 
-#### kubeadm 설치하기 / [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+아래는  [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)에서 설명하는 내용입니다.
+
+#### kubeadm 설치 전 사전 확인 작업
 
 ##### OS 설치
 
@@ -241,7 +267,7 @@ $ sudo mv daemon.json /etc/docker/
   * RAM이 2 GB 이상 이다.
   * hostname, MAC주소, product_uuid가 고유하다. ([here](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#verify-mac-address) 참조)
   * 특정 포트가 개방되야 한다. ([here](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#check-required-ports) 참조)
-* 클러스터의 컴퓨터 혹은 노드가 모두 네트워크로 연결되야 한다.
+* 클러스터의 컴퓨터 혹은 노드가 모두 네트워크로 연결될 수 있어야 한다.
   * public network 혹은 private network 상관 없음.
 
 **중요: 각 컴퓨터에 설치될 kubelet이 정상 동작하려면 swap의 기능이 꺼져있어야만 합니다**
@@ -279,6 +305,97 @@ $ sudo cat /sys/class/dmi/id/product_uuid
 $
 ```
 
+##### Step 2. 네트워크 어댑터 (Network Adapter) 확인
+
+쿠버네티스 클러스터 주소가 적합한 네트워크 어댑터를 지나갈 수 있도록 IP루트 (IP route)를 추가하기를 추천합니다. 
+
+만약 컴퓨터에 꽂힌 네크워크 카드가 한 개 이상일 경우, 쿠버네티스 구성요소들 (Kubernetes Components)이 디폴트 경로 (default route)로 데이터를 주고 받을 수 없을 수 있습니다.
+
+TODO: 공식 문서의 설명이 부족하므로 필요 시 내용 추가.
+
+##### Step 2.1. Linux노드의 iptables이 bridged traffic을 볼 수 있도록 설정되었는지 확인
+
+##### Step 2.1.1. `br_netfilter` 모듈이 로딩되었는지 확인
+
+```bash
+$ lsmod | grep br_netfilter
+br_netfilter           24576  0
+bridge                155648  1 br_netfilter
+$
+```
+
+로딩이 안 되었다면, 아래 명령어로 로딩합니다.
+
+```bash
+$ sudo modprobe br_netfilter 
+```
+
+더 상세한 내용은 [Network Plugin Requirements](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)를 참고하세요
+
+##### Step 2.1.2. `net.bridge.bridge-nf-call-iptables`이 1로 설정되었는지 확인
+
+아래 명령어를 실행하기 전에 `br_netfilter` 모듈이 로딩되어 있어야 합니다.
+
+```bash
+$ cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+$ sudo sysctl --system
+```
+
+위의 명령어는 `/etc/sysctl.d/k8s.conf` 을 생성합니다. 파일 내용은 아래와 같습니다.
+
+```bash
+$ cat /etc/sysctl.d/k8s.conf 
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+$
+```
+
+`sysctl`명령어을 실행하면  `/etc/sysctl.d/k8s.conf` 의 설정파일이 적용된 것을 확인할 수 있습니다.
+
+```bash
+$ sudo sysctl --system
+  ...
+* Applying /etc/sysctl.d/k8s.conf ...
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+* Applying /etc/sysctl.conf ...
+$
+```
+
+#####  Step 3. 필요한 필수 포트의 개방 여부를 확인
+
+* 마스터 노드는 6443, 2379-2380, 10250-10252 포트가 필요
+* 워커 노드는 10250, 30000-23767 포트가 필요
+
+
+
+마스터 노트 (Master Node or Control-Plane Node)
+
+| Protocol | Direction | Port Range | Purpose                 | Used By              |
+| -------- | --------- | ---------- | ----------------------- | -------------------- |
+| TCP      | Inbound   | 6443*      | Kubernetes API server   | All                  |
+| TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd |
+| TCP      | Inbound   | 10250      | Kubelet API             | Self, Control plane  |
+| TCP      | Inbound   | 10251      | kube-scheduler          | Self                 |
+| TCP      | Inbound   | 10252      | kube-controller-manager | Self                 |
+
+*가 붙은 포트 (6443)는 덮어쓸 수 있으므로, 이 포트를 쓸 수 있는지 확인해야 합니다.
+
+TODO: 확인하는 명령어가 공식 문서에 없으므로 추가해야 함
+
+워커 노드 (Worker Node)
+
+| Protocol | Direction | Port Range  | Purpose            | Used By             |
+| -------- | --------- | ----------- | ------------------ | ------------------- |
+| TCP      | Inbound   | 10250       | Kubelet API        | Self, Control plane |
+| TCP      | Inbound   | 30000-32767 | NodePort Services† | All                 |
+
+#### kubeadm 설치하기
+
+이 부분은 쿠버네티스 공식 문서의 [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) > [Installing runtime](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)에 해당합니다.
 
 
 
