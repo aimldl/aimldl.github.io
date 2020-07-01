@@ -248,37 +248,6 @@ $ sudo mv daemon.json /etc/docker/
 
 ##### Step 1. 각 노드의 hostname, MAC주소, product_uuid가 고유한지 확인.
 
-마스터로 사용할 컴퓨터
-
-```bash
-$ hostname
-GPU-Desktop
-$ ip link | grep "link"
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    link/ether 14:b3:1f:22:ef:e3 brd ff:ff:ff:ff:ff:ff
-    link/ether 9c:b6:d0:ea:33:89 brd ff:ff:ff:ff:ff:ff
-    link/ether 02:42:fb:71:1f:45 brd ff:ff:ff:ff:ff:ff
-$ sudo cat /sys/class/dmi/id/product_uuid
-[sudo] password for k8smaster: 
-4C4C4544-0053-3910-8030-C3C04F314C32
-$
-```
-
-워커 노드로 사용할 컴퓨터
-
-```bash
-$ hostname
-k8snode-01-gpu-desktop
-$ ip link | grep "link"
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    link/ether d8:9e:f3:7b:49:2e brd ff:ff:ff:ff:ff:ff
-    link/ether 9c:b6:d0:f5:7e:21 brd ff:ff:ff:ff:ff:ff
-$ sudo cat /sys/class/dmi/id/product_uuid
-[sudo] password for k8snode: 
-4C4C4544-004B-3110-8059-C4C04F504D32
-$
-```
-
 
 
 ##### [턴키 클라우드 솔루션](https://kubernetes.io/ko/docs/setup/production-environment/turnkey/)
