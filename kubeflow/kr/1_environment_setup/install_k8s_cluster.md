@@ -244,37 +244,9 @@ $ sudo mv daemon.json /etc/docker/
 * 클러스터의 컴퓨터 혹은 노드가 모두 네트워크로 연결되야 한다.
   * public network 혹은 private network 상관 없음.
 
-**중요: 각 컴퓨터에 설치될 kubelet이 정상 동작하려면 swap의 기능이 꺼져있어야만 합니다.**
+**중요: 각 컴퓨터에 설치될 kubelet이 정상 동작하려면 swap의 기능이 꺼져있어야만 합니다**
 
-##### Step 1. 각 노드의 hostname, MAC주소, product_uuid가 고유한지 확인.
-
-마스터로 사용할 컴퓨터
-
-```bash
-$ hostname
-GPU-Desktop
-$
-```
-
-```bash
-$ ip link | grep "link"
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    link/ether 14:b3:1f:22:ef:e3 brd ff:ff:ff:ff:ff:ff
-    link/ether 9c:b6:d0:ea:33:89 brd ff:ff:ff:ff:ff:ff
-    link/ether 02:42:fb:71:1f:45 brd ff:ff:ff:ff:ff:ff
-$
-```
-
-```bash
-$ sudo cat /sys/class/dmi/id/product_uuid
-[sudo] password for k8smaster: 
-4C4C4544-0053-3910-8030-C3C04F314C32
-$
-```
-
-
-
-
+##### Step 1. 각 노드의 hostname, MAC주소, product_uuid가 고유한지 확인
 
 
 
