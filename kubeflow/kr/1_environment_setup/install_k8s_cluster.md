@@ -249,5 +249,4 @@ $ sudo mv daemon.json /etc/docker/
 ##### Step 1. 각 노드의 hostname, MAC주소, product_uuid가 고유한지 확인
 
 
-
 ##### [턴키 클라우드 솔루션](https://kubernetes.io/ko/docs/setup/production-environment/turnkey/)
