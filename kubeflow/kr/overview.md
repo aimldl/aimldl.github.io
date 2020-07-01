@@ -6,5 +6,5 @@
 
 ## 환경설정
 
-[쿠버네티스 클러스터 설치](install_k8s_cluster.html)
+[쿠버네티스 클러스터 설치](1-environment_setup/install_k8s_cluster.html)
 
