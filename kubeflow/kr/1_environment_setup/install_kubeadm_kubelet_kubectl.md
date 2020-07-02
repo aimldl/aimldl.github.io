@@ -57,6 +57,7 @@ $ cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 $ sudo apt-get update
   ...
+Reading package lists... Done
 $ sudo apt-get install -y kubelet kubeadm kubectl
   ...
 Setting up kubelet (1.18.5-00) ...
@@ -71,22 +72,36 @@ kubectl set on hold.
 $
 ```
 
-## Docker 이외의 컨테이너 런타임을 이용할 경우
-
-Docker가 설치된 경우, kubeadm가 kubelet이 이용하는 cgroup 드라이버를 자동으로 찾아서 런타임 동안 `/var/lib/kubelet/config.yaml` 파일에 설정합니다. 
+### 워커 노드
 
 ```bash
-$ cat /var/lib/kubelet/config.yaml
-cat: /var/lib/kubelet/config.yaml: No such file or directory
-$ sudo cat /var/lib/kubelet/config.yaml
-[sudo] password for k8smaster: 
-cat: /var/lib/kubelet/config.yaml: No such file or directory
+$ sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+  ...
+curl is already the newest version (7.58.0-2ubuntu3.9).
+apt-transport-https is already the newest version (1.6.12ubuntu0.1).
+0 upgraded, 0 newly installed, 0 to remove and 11 not upgraded.
+$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+OK
+$ cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+> deb https://apt.kubernetes.io/ kubernetes-xenial main
+> EOF
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+$ sudo apt-get update
+  ...
+Reading package lists... Done
+$ sudo apt-get install -y kubelet kubeadm kubectl
+  ...
+Setting up kubectl (1.18.5-00) ...
+Setting up ethtool (1:4.15-0ubuntu1) ...
+Setting up kubelet (1.18.5-00) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/kubelet.service → /lib/systemd/system/kubelet.service.
+Setting up kubeadm (1.18.5-00) ...
+Processing triggers for systemd (237-3ubuntu10.41) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for ureadahead (0.100.0-21) ...
+$ sudo apt-mark hold kubelet kubeadm kubectl
+kubelet set on hold.
+kubeadm set on hold.
+kubectl set on hold.
 $
 ```
-
-Docker 이외의 컨테이너 런타임을 이용할 경우엔 마스터 노드의 kubelet이 이용하는 cgroup 드라이버를 수동으로 설정해야 합니다. 필요 시 [Configure cgroup driver used by kubelet on control-plane node](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node) 참고하고 하세요.
-
-
-
-
-
