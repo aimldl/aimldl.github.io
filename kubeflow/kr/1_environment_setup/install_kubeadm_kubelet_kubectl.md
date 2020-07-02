@@ -71,3 +71,22 @@ kubectl set on hold.
 $
 ```
 
+## Docker 이외의 컨테이너 런타임을 이용할 경우
+
+Docker가 설치된 경우, kubeadm가 kubelet이 이용하는 cgroup 드라이버를 자동으로 찾아서 런타임 동안 `/var/lib/kubelet/config.yaml` 파일에 설정합니다. 
+
+```bash
+$ cat /var/lib/kubelet/config.yaml
+cat: /var/lib/kubelet/config.yaml: No such file or directory
+$ sudo cat /var/lib/kubelet/config.yaml
+[sudo] password for k8smaster: 
+cat: /var/lib/kubelet/config.yaml: No such file or directory
+$
+```
+
+Docker 이외의 컨테이너 런타임을 이용할 경우엔 마스터 노드의 kubelet이 이용하는 cgroup 드라이버를 수동으로 설정해야 합니다. 필요 시 [Configure cgroup driver used by kubelet on control-plane node](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node) 참고하고 하세요.
+
+
+
+
+

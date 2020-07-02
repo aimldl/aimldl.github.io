@@ -16,11 +16,11 @@
 ## 최소 요건
 
 * 각 컴퓨터 혹은 노드의
-  * **swap의 기능이 꺼져있다.**
   * CPU가 2개 이상 이다.
   * RAM이 2 GB 이상 이다.
   * hostname, MAC주소, product_uuid가 고유하다. ([here](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#verify-mac-address) 참조)
   * 특정 포트가 개방되야 한다. ([here](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#check-required-ports) 참조)
+  * **swap의 기능이 꺼져있다.**
 * 클러스터의 컴퓨터 혹은 노드가 모두 네트워크로 연결될 수 있어야 한다.
   * public network 혹은 private network 상관 없음.
 
@@ -146,6 +146,58 @@ TODO: 확인하는 명령어가 공식 문서에 없으므로 추가해야 함
 | -------- | --------- | ----------- | ------------------ | ------------------- |
 | TCP      | Inbound   | 10250       | Kubelet API        | Self, Control plane |
 | TCP      | Inbound   | 30000-32767 | NodePort Services† | All                 |
+
+## 4. Swap 기능이 꺼져있다.
+
+
+
+## 5. 노드 간의 네트워크 연결 확인
+
+네트워크 연결은 (완벽하게 잘 연결되었는지 확인할 수는 없지만) ping 테스트로 확인한다.
+
+### 마스터 노드
+
+```bash
+$ ifconfig | grep inet
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        inet 192.168.0.109  netmask 255.255.255.0  broadcast 192.168.0.255
+        inet6 fe80::b881:4c9e:7702:51e7  prefixlen 64  scopeid 0x20<link>
+$
+```
+
+## 워커 노드
+
+```bash
+
+```
+
+
+
+### 마스터 -> 워커 01 호출
+
+```bash
+$ ping 192.168.0.118
+PING 192.168.0.118 (192.168.0.118) 56(84) bytes of data.
+64 bytes from 192.168.0.118: icmp_seq=1 ttl=64 time=39.5 ms
+64 bytes from 192.168.0.118: icmp_seq=2 ttl=64 time=293 ms
+64 bytes from 192.168.0.118: icmp_seq=3 ttl=64 time=211 ms
+64 bytes from 192.168.0.118: icmp_seq=4 ttl=64 time=115 ms
+^C
+--- 192.168.0.118 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 39.562/165.157/293.682/96.101 ms
+$
+```
+
+### 워커01 --> 마스터 호출
+
+```bash
+$ ping 
+```
+
+
 
 ## 다음
 
