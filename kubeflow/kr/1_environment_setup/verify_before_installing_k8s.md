@@ -147,9 +147,75 @@ TODO: 확인하는 명령어가 공식 문서에 없으므로 추가해야 함
 | TCP      | Inbound   | 10250       | Kubelet API        | Self, Control plane |
 | TCP      | Inbound   | 30000-32767 | NodePort Services† | All                 |
 
-## 4. Swap 기능이 꺼져있다.
+## 4. 스왑 메모리 (Swap Memory) 비활성화
 
+쿠버네티스의 주요 구성 요소 중의 하나인 kubelet은 스왑 메모리를 지원하지 않도록 개발되었습니다. 그러므로 스왑 메모리를 비활성화해야 합니다. 
 
+### Step 1. 스왑 메모리를 모두 비활성화합니다.
+
+```bash
+$ sudo swapoff -a
+[sudo] password for k8smaster: 
+$
+```
+
+> swapon, swapoff - enable/disable devices and files for paging and swapping
+>
+> Enable/disable all:
+>
+> $ swapon -a [-e] [-f] [-v]
+> $ swapoff -a [-v]
+>
+> **-a, --all**
+>
+> All devices marked as ''swap'' in */etc/fstab* are made available, except for those with the ''noauto'' option. Devices that are already being used as swap are silently skipped.
+>
+> Source: [swapoff(8) - Linux man page](https://linux.die.net/man/8/swapoff)
+
+### Step 2. `/etc/fstab`파일의 swap관련 부분을 비활성화합니다.
+
+`/etc/fstab`파일을 텍스트 에디터로 열면
+
+```bash
+$ sudo nano /etc/fstab
+```
+
+ 아래와 같습니다.
+
+```bash
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme0n1p1 during installation
+UUID=68661764-1b74-4ecb-971a-c92568eb8282 /               ext4    errors=remount-ro 0       1
+/swapfile                                 none            swap    sw              0       0
+```
+
+두번째 줄의 `/swapfile`로 시작되는 하는 곳이 swap 관련 부분입니다. 이 부분을 제거하기 위해 줄의 제일 앞에 #를 붙여줍니다.
+
+```bash
+#/swapfile                                 none            swap    sw              0       0
+```
+
+#### 주의:  `/etc/fstab`파일을 수동으로 비활성화하는 것을 권장합니다.
+
+아래처럼 `sed`명령어를 이용해서 `/etc/fstab`파일의 열번째 줄의 제일 앞부분에 #를 붙여줄 수도 있지만, 위처럼 수동으로 비활성화하는 것을 권장합니다. 왜냐하면 만약 두번째 줄에 `/swapfile`이 아닌 루트 파티션에 관한 내용이 있다면 아주 위험한 결과를 초래할 수 있기 때문입니다.
+
+```bash
+$ sudo sed -i '10s/^/#/' /etc/fstab
+```
+
+[다른 블로그](https://medium.com/finda-tech/overview-8d169b2a54ff)의 명령어를 참고하다가  `sed`명령어를 이용하는 경우만 설명하는 경우를 본 적이 있습니다. 이 블로그에는 열번째 줄이 아닌 두번째 줄에 #을 붙이도록 되어 있습니다.  
+
+```bash
+$ sudo sed -i '2s/^/#/' /etc/fstab
+```
+
+Ubuntu 18.04 LTS버전임에도 `/etc/fstab`에서 `/swapfile`이 있는 줄의 수가 달라진 경우가 있다는 것으로 유추할 수 있습니다. 이렇게 줄이 틀리면 스왑메모리 비활성화가 되지 않아, 나중에 쿠버네티스 클러스터를 사용할 때 오동작을 할 수 있습니다. 그러므로 어차피 텍스트 에디터로 `/etc/fstab`파일을 열어서 확인해야 하기 때문에 그냥 수동으로 비활성화하는 것을 권장합니다.
 
 ## 5. 노드 간의 네트워크 연결 확인
 
@@ -159,11 +225,9 @@ TODO: 확인하는 명령어가 공식 문서에 없으므로 추가해야 함
 
 ```bash
 $ ifconfig | grep inet
-        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
-        inet 127.0.0.1  netmask 255.0.0.0
-        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+  ...
         inet 192.168.0.109  netmask 255.255.255.0  broadcast 192.168.0.255
-        inet6 fe80::b881:4c9e:7702:51e7  prefixlen 64  scopeid 0x20<link>
+  ...
 $
 ```
 

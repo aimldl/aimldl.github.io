@@ -1,14 +1,19 @@
 * Draft: 2020-07-01 (Wed)
 
-## 배포 툴을 이용해서 쿠버네티스 설치하기
+## 배포 도구을 이용해서 쿠버네티스 설치하기
 
-쿠버네티스 아래의 배포 툴 (Deployment Tool) 중 하나를 선택해서 설치합니다.
+쿠버네티스 아래의 배포 도구 (Deployment Tool) 중 하나를 선택해서 설치합니다.
 
-* kubeadm
-* kops
-* kubespray
+* [kubeadm](https://github.com/kubernetes/kubeadm)
+* [kops](https://github.com/kubernetes/kops)
+* [kubespray](https://github.com/kubernetes-sigs/kubespray)
+* [kubicorn](https://github.com/kubicorn/kubicorn)
 
-이 문서에서는 kubeadm을 이용해서 로컬 머신에 쿠버네티스를 설치하는 과정을 설명합니다. kops와 kubespray는 퍼블릭 클라우드에 쿠버네티스 설치를 도와주는 툴이므로 쓰지 않았습니다.
+이 문서에서는 kubeadm을 이용해서 로컬 머신에 쿠버네티스를 설치하는 과정을 설명합니다. 가장 쉽고 많이 사용되는 배포 도구로 알려져 있기 때문입니다. 참고로
+
+* kops는 공식적으로 AWS에 쿠버네티스를 설치하는 것만 지원합니다. 
+* kubespray는 AWS, GCE, Azure, OpenStack, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (베타 버전), Bare Metal에 고가용성 클러스터 생성을 지원합니다.
+* kubicorn은 비공식적인 프로젝트로 쿠버네티스 공식 문서에는 언급되어 있지 않습니다.
 
 ### 한국어 번역된 쿠버네티스 설치 관련 공식 문서
 
