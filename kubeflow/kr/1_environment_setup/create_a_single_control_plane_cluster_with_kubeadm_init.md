@@ -124,7 +124,13 @@ kubeadm join 192.168.0.109:6443 --token zqw1lb.tuhllf8m7zntibcq \
     --discovery-token-ca-cert-hash sha256:e3f15962b0535847add930d0e16fe92dc3e7ed139f29e0093e0b0766ca615671
 ```
 
-가 됩니다. **중요: 이 명령어를 잘 기록해야 합니다. 새 노드를 클러스터에 조인 (join)하기 위해서 필요합니다.** 
+가 됩니다. 
+
+**중요: 이 명령어를 안전하게 잘 기록해야 합니다. **
+
+* 새 노드를 클러스터에 조인 (join)하기 위해서 필요합니다.
+
+* 마스터와 노드의 상호 인증을 위해서 토큰이 사용됩니다. 이 토큰은 안전하게 잘 관리해야 하는데, 토큰이 있으면 누구나 클러스터에 노드를 붙일 수 있기 때문입니다. 토큰에 대한 조작은 `kubeadm token` 명령어로 할 수 있습니다. 상세한 내용은 쿠버네티스 공식 문서의 [kubeadm reference guide](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-token/)를 참고하세요. 
 
 #### Step 2. `$HOME/.kube/config`를 설정
 
@@ -138,7 +144,7 @@ $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 ##### 명령어에 대한 설명
 
-root 계정이 아닌 일반 사용자 계정으로 클러스터를 제어하기 위한 설정입니다. 제어를 위해선 `kubectl` 커맨드 명령어를 사용하게 됩니다.
+**root 계정이 아닌 일반 사용자 계정으로 클러스터를 제어하기 위한 설정입니다. 제어를 위해선 `kubectl` 커맨드 명령어를 사용하게 됩니다.
 
 일반 사용자 계정으로 `$HOME/.kube` 디렉토리를 만든 후, `/etc/kubernetes/admin.conf`의 내용을 `$HOME/.kube/config`으로 복사합니다. 마지막 명령어는 파일의 권한을 일반 사용자 계정으로 변경합니다. 이것이 없다면 파일을 쓰기 위해 루트 권한이 필요합니다.
 
@@ -219,7 +225,35 @@ $ sudo kubeadm join 192.168.0.109:6443 --token zqw1lb.tuhllf8m7zntibcq \
     --discovery-token-ca-cert-hash sha256:e3f15962b0535847add930d0e16fe92dc3e7ed139f29e0093e0b0766ca615671
 ```
 
-마스터와 노드의 상호 인증을 위해서 토큰이 사용됩니다. 이 토큰은 안전하게 잘 관리해야 하는데, 토큰이 있으면 누구나 클러스터에 노드를 붙일 수 있기 때문입니다. 토큰에 대한 조작은 `kubeadm token` 명령어로 할 수 있습니다. 상세한 내용은 쿠버네티스 공식 문서의 [kubeadm reference guide](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-token/)를 참고하세요. 
+출력 메세지는
+
+```bash
+[sudo] password for k8snode: 
+W0703 19:13:46.603764   24337 join.go:346] [preflight] WARNING: JoinControlPane.controlPlane settings will be ignored when control-plane flag is not set.
+[preflight] Running pre-flight checks
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.18" ConfigMap in the kube-system namespace
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+$
+```
+
+#### Step 2. 클러스터 노드 정보를 확인
+
+```bash
+$ kubectl get nodes
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+$
+```
 
 ## 다음
 
