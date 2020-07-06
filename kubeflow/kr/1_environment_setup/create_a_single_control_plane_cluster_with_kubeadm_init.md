@@ -1,3 +1,4 @@
+* Rev.2: 2020-07-06 (Mon)
 * Rev.1: 2020-07-03 (Fri)
 * Draft: 2020-07-02 (Thu)
 
@@ -10,17 +11,17 @@
 * 단일 구성 클러스터(Single Control-Plane Kubernetes Cluster)
 * 고가용성 클러스터  (High Availability Kubernetes Cluster)
 
-중 하나를 선택할 수 있고, 
+중 하나를 선택할 수 있고, Pod Network로
 
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install), [Calico](https://docs.projectcalico.org/latest/introduction/), [Cilium](https://github.com/cilium/cilium), [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie), [Contiv](http://contiv.github.io), [Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md), [Knitter](https://github.com/ZTE/Knitter/), [Multus](https://github.com/Intel-Corp/multus-cni), [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin), [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf), [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst), [Romana](http://romana.io), [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/)
 
-중 하나를 Pod Network으로 선택할 수 있다고 설명했습니다.
+중 하나를 선택할 수 있다고 설명했습니다.
 
-이 부분에서는 단일 구성 클러스터를 생성하고, Calico Pod Network를 구성하는 명령어에 대해 알아봅니다.
+이 부분에서는 단일 구성 클러스터를 생성하고, Calico Pod Network를 구성하는 명령어에 대해 알아봅니다. 그 전에 전제 조건 중 실행해야 하는 명령어를 먼저 요약해봅니다. [kubeadm 설치 전 사전 확인 작업](verify_before_installing_k8s.md) > 4. 스왑 메모리 (Swap Memory) 비활성화에서 이미 설명했지만, 중요하기 때문에 재확인한다는 느낌으로 명령어를 실행해봅니다. 클러스터에 쓸 모든 컴퓨터에서 스왑 메모리를 비활성화하는 두 개 명령어를 실행합니다.
 
-## 전제 조건 (Prerequisites)쿠버네티스 공식 문서의 [Creating a single control-plane cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) > 
+## 전제 조건 (Prerequisites)
 
-이 부분은 [kubeadm 설치 전 사전 확인 작업](verify_before_installing_k8s.md) > 4. 스왑 메모리 (Swap Memory) 비활성화에서 이미 설정한 부분이므로 명령어를 요약해봅니다. 중요하므로 클러스터에 쓸 모든 컴퓨터에서 아래의 두 개 명령어를 다시 실행해서 재확인해도 좋습니다.
+새로 OS가 설치되었거나, 기존에 있는 OS에 신규 계정을 만든 상태로 네트워크가 잘 동작한다고 가정합니다. 그렇다면 일반적으로 다른 전제 조건은 만족되지만, 스왑 메모리는 수동으로 비활성화를 해줘야 합니다. 보다 꼼꼼히 전제 조건을 재확인하려면, [kubeadm 설치 전 사전 확인 작업](verify_before_installing_k8s.md) > 4. 스왑 메모리 (Swap Memory) 비활성화을 참고하세요.
 
 #### 모든 컴퓨터에서 스왑 메모리 (Swap Memory)를 비활성화
 
@@ -219,7 +220,9 @@ $ sudo kubeadm join 192.168.0.109:6443 --token zqw1lb.tuhllf8m7zntibcq \
     --discovery-token-ca-cert-hash sha256:e3f15962b0535847add930d0e16fe92dc3e7ed139f29e0093e0b0766ca615671
 ```
 
-마스터와 노드의 상호 인증을 위해서 토큰이 사용됩니다. 이 토큰은 안전하게 잘 관리해야 하는데, 토큰이 있으면 누구나 클러스터에 노드를 붙일 수 있기 때문입니다. 토큰에 대한 조작은 `kubeadm token` 명령어로 할 수 있습니다. 상세한 내용은 쿠버네티스 공식 문서의 [kubeadm reference guide](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-token/)를 참고하세요. 
+마스터와 노드의 상호 인증을 위해서 토큰이 사용됩니다. 이 토큰은 안전하게 잘 관리해야 하는데, 토큰이 있으면 누구나 클러스터에 노드를 붙일 수 있기 때문입니다. 토큰에 대한 조작은 `kubeadm token` 명령어로 할 수 있습니다. 상세한 내용은 쿠버네티스 공식 문서의 [kubeadm reference guide](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-token/)를 참고하세요.
+
+Step 2. 확인하기
 
 ## 다음
 
