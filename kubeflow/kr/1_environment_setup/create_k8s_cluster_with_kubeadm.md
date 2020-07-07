@@ -21,7 +21,7 @@
 
 ### 쿠버네티스 클러스터 아키텍쳐
 
-컨트롤 플레인 노드 (Controla Plane Node)는 컨트롤 플레인 요소 (Control Plane Components)가 실행되는 컴퓨터입니다. 워커 노드 (Worker Node)는 컨트롤 플레인 노드가 할당한 일 (Work 혹은 Task)을 수행하는 컴퓨터로 일반적으로 다수의 컴퓨터로 구성됩니다. 아래 그림은 마스터와 노드에 필요한 구성요소를 간략히 설명하는 쿠버네티스 클러스터 아키텍쳐의 한 예시입니다.
+컨트롤 플레인 노드 (Control Plane Node)는 컨트롤 플레인 요소 (Control Plane Components)가 실행되는 컴퓨터입니다. 워커 노드 (Worker Node)는 컨트롤 플레인 노드가 할당한 일 (Work 혹은 Task)을 수행하는 컴퓨터로 일반적으로 다수의 컴퓨터로 구성됩니다. 아래 그림은 마스터와 노드에 필요한 구성요소를 간략히 설명하는 쿠버네티스 클러스터 아키텍쳐의 한 예시입니다.
 
 <img src="/home/k8smaster/github/aimldl.github.io/kubeflow/kr/1_environment_setup/images/kubernetes_architecture.jpg">
 

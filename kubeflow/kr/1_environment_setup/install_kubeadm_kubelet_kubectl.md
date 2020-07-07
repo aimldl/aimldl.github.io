@@ -108,4 +108,4 @@ $
 
 ## 다음
 
-* [kubeadm으로 쿠버네티스 클러스터 생성하기](create_k8s_cluster_with_kubeadm.md)create_a_single_control_plane_cluster_with_kubeadm.md)
+* [kubeadm으로 쿠버네티스 클러스터 생성하기](create_k8s_cluster_with_kubeadm.md)

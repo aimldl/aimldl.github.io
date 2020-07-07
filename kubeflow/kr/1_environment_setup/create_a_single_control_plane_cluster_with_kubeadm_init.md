@@ -1,3 +1,4 @@
+* Rev.3: 2020-07-07 (Tue)
 * Rev.2: 2020-07-06 (Mon)
 * Rev.1: 2020-07-03 (Fri)
 * Draft: 2020-07-02 (Thu)
@@ -21,7 +22,9 @@
 
 ## 전제 조건 (Prerequisites)
 
-새로 OS가 설치되었거나, 기존에 있는 OS에 신규 계정을 만든 상태로 네트워크가 잘 동작한다고 가정합니다. 그렇다면 일반적으로 다른 전제 조건은 만족되지만, 스왑 메모리는 수동으로 비활성화를 해줘야 합니다. 보다 꼼꼼히 전제 조건을 재확인하려면, [kubeadm 설치 전 사전 확인 작업](verify_before_installing_k8s.md) > 4. 스왑 메모리 (Swap Memory) 비활성화을 참고하세요.
+꼼꼼히 전제 조건을 재확인하려면, [kubeadm 설치 전 사전 확인 작업](verify_before_installing_k8s.md) > 4. 스왑 메모리 (Swap Memory) 비활성화를 참고하시면 됩니다. 하지만 새로 OS가 설치되었거나, 기존에 있는 OS에 신규 계정을 만든 상태로 네트워크가 잘 동작한다면, 일반적으로 한 가지 조건을 제외하고 나머지 조건은 만족됩니다.
+
+나머지 하나의 조건을 만족시키기 위해서 스왑 메모리를 수동으로 비활성화합니다. 
 
 #### 모든 컴퓨터에서 스왑 메모리 (Swap Memory)를 비활성화
 
@@ -74,58 +77,16 @@ Your Kubernetes control-plane has initialized successfully!
 $
 ```
 
-> Your Kubernetes control-plane has initialized successfully!
-
-의 앞부분은
+초기화 성공 메세지의 앞부분은
 
 * 쿠버네티스 설치 가능 여부를 사전 체크하고,
 * 컨트롤 플레인 요소를 다운로드하고 설치한
 
-결과가 출력됩니다. 설치를 진행하기에 문제가 있을 경우, 사전 체크 과정에서 warning이나 error를 출력하고 exit 됩니다. 
+결과가 출력됩니다. 설치를 진행하기에 문제가 있을 경우, 사전 체크 과정에서 warning이나 error를 출력하고 exit 됩니다. 메세지가 나왔다는 것은 이 과정을 문제없이 통과했다는 것을 의미합니다.
 
-뒷부분은 클러스터 형성을 완료하기 위해 마스터와 노드에서 실행해야 하는 명령어를 보여줍니다.
+초기화 성공 메세지의 뒷부분은 
 
-##### 마스터에서
-
- `$HOME/.kube/config`를 설정하고
-
-```bash
-To start using your cluster, you need to run the following as a regular user:
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-```
-
-Pod Network를 추가합니다.
-
-```bash
-You should now deploy a pod network to the cluster.
-Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
-```
-
-##### 노드에서
-
-```bash
-Then you can join any number of worker nodes by running the following on each as root:
-kubeadm join <control-plane-host>:<control-plane-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
-```
-
-예를 들어
-
-* `control-plane-host`가 `192.168.0.109`
-* `control-plane-port`가 `6443`
-* `token`이 `zqw1lb.tuhllf8m7zntibcq`
-* `hash`가 `e3f15962b0535847add930d0e16fe92dc3e7ed139f29e0093e0b0766ca615671`
-
-일 경우에 마지막 명령어는
-
-```bash
-kubeadm join 192.168.0.109:6443 --token zqw1lb.tuhllf8m7zntibcq \
-    --discovery-token-ca-cert-hash sha256:e3f15962b0535847add930d0e16fe92dc3e7ed139f29e0093e0b0766ca615671
-```
-
-가 됩니다. **중요: 이 명령어를 잘 기록해야 합니다. 새 노드를 클러스터에 조인 (join)하기 위해서 필요합니다.** 
+* 남은 작업을 위해서 마스터와 노드에서 실행할 명령어를 보여줍니다.
 
 #### Step 2. `$HOME/.kube/config`를 설정
 
@@ -194,6 +155,17 @@ $
 
 다른 `podnetwork`을 선택할 경우의 명령어는 다음 파트에서 설명합니다.
 
+노드에서는 이 명령어를 실행하지 않습니다. 참고로 아래는 클러스터가 설정된 후에 실행한 결과입니다. 
+
+```bash
+$ sudo kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+[sudo] password for k8snode: 
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+$
+```
+
+어찌보면 당연한 얘기지만 클러스터 설정 과정의 불확실성을 명확해 덧붙입니다.
+
 #### Step 4. 클러스터 노드 정보를 확인
 
 `kubectl get nodes`명령어로 클러스터 노드 정보를 확인해봅니다.
@@ -211,151 +183,155 @@ $
 
 앞서 생성된 클러스터에 노드를 조인 (join) 하기 위해,   `kubeadm join`명령어를 실행합니다. 상세한 내용은 쿠버네티스 공식 문서의 [Creating a single control-plane cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) > [join nodes to your cluster](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#join-nodes)를 참고하세요.
 
-#### Step 1.  `kubeadm join`명령어 실행
+#### Step 1.  노드에서 `kubeadm join`명령어 실행
 
-`kubeadm join <control-plane-host>:<control-plane-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>` 에 해당하는 명령어를 실행합니다. 구체적인 파라미터 값은 마스터에서 `kubeadm init` 명령어 실행 시 출력됩니다. 예를 들면,
+```bash
+$ kubeadm join <control-plane-host>:<control-plane-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+```
+
+에 해당하는 명령어를 실행합니다. 구체적인 파라미터 값은 마스터에서 `kubeadm init` 명령어 실행 시 출력됩니다. 예를 들면,
 
 ```bash
 $ sudo kubeadm join 192.168.0.109:6443 --token zqw1lb.tuhllf8m7zntibcq \
     --discovery-token-ca-cert-hash sha256:e3f15962b0535847add930d0e16fe92dc3e7ed139f29e0093e0b0766ca615671
 ```
 
-마스터와 노드의 상호 인증을 위해서 토큰이 사용됩니다. 이 토큰은 안전하게 잘 관리해야 하는데, 토큰이 있으면 누구나 클러스터에 노드를 붙일 수 있기 때문입니다. 토큰에 대한 조작은 `kubeadm token` 명령어로 할 수 있습니다. 상세한 내용은 쿠버네티스 공식 문서의 [kubeadm reference guide](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-token/)를 참고하세요.
+출력 메세지는
 
-Step 2. 확인하기
+```bash
+[sudo] password for k8snode: 
+W0703 19:13:46.603764   24337 join.go:346] [preflight] WARNING: JoinControlPane.controlPlane settings will be ignored when control-plane flag is not set.
+[preflight] Running pre-flight checks
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.18" ConfigMap in the kube-system namespace
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+$
+```
+
+이 노드가 클러스터에 조인 (join) 했고, 확인하려면 컨트롤 플레인 (the control-plane), 즉 마스터에서 `kubectl get nodes`명령어를 실행하라는 메세지가 출력됐습니다. 이렇게 해서 단일 구성 클러스터의 생성을 완료했습니다. 
+
+## (선택) 클러스터 상태 확인
+
+아직 생성된 클러스터에 대한 감이 없으므로, 클러스터의 상태를 보는 것으로 클러스터가 잘 설정되었음을 확인합니다.
+
+### 마스터에서 클러스터 정보를 확인
+
+ `kubectl get nodes`명령어를 실행해보면 node가 추가되었음을 알 수 있습니다.
+
+```bash
+$ kubectl get nodes
+NAME                     STATUS   ROLES    AGE     VERSION
+k8smaster-gpu-desktop    Ready    master   3d22h   v1.18.5
+k8snode-01-gpu-desktop   Ready    <none>   3d18h   v1.18.5
+$
+```
+
+참고로 노드에서 같은 명령어를 실행하면 에러 메세지가 나옵니다.
+
+```bash
+$ kubectl get nodes
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+$
+```
+
+### 클러스터에 설치된 파드 (Pod)를 확인
+
+쿠버네티스 클러스터의 아키텍쳐를 참고해서 설치된 파드를 확인해봅니다. 참고로 컨테이너를 실행시키는 최소 단위인 파드는 생성/소멸을 반복할 수 있고, 서로 통신할 수 있도록 Pod Network가 형성됩니다. Pod Network와 CNI Network는 동의어입니다.
+
+<img src="/home/k8smaster/github/aimldl.github.io/kubeflow/kr/1_environment_setup/images/kubernetes_architecture.jpg">
+
+Source: [Kubernetes architecture and concepts tutorial - Kubernetes Administration for beginners(9:18)](https://www.youtube.com/watch?v=oFglQ50O_rU)
+
+`kubectl get pod` 명령어로 설치된 파드 (Pod)를 확인했을 때의 출력입니다. 한 행이 한 줄에 보이도록 각 열의 간격을 조절했습니다.
+
+```bash
+$ kubectl get pod --namespace=kube-system -o wide
+NAME                                          READY STATUS RESTARTS AGE    IP            NODE          NOMINATED NODE READINESS GATES
+calico-kube-controllers-76d4774d89-wp8zx      1/1  Running  0       3d15h  172.16.37.65  k8smaster-gpu-desktop  <none>  <none>
+calico-node-rcrvd                             1/1  Running  1       3d15h  192.168.0.118 k8snode-01-gpu-desktop <none>  <none>
+calico-node-w5swf                             1/1  Running  0       3d15h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+coredns-66bff467f8-dh65v                      1/1  Running  0       3d19h  172.16.37.66  k8smaster-gpu-desktop  <none>  <none>
+coredns-66bff467f8-mb2mm                      1/1  Running  0       3d19h  172.16.37.67  k8smaster-gpu-desktop  <none>  <none>
+etcd-k8smaster-gpu-desktop                    1/1  Running  0       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+kube-apiserver-k8smaster-gpu-desktop          1/1  Running  0       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+kube-controller-manager-k8smaster-gpu-desktop 1/1  Running  1       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+kube-proxy-qmnxq                              1/1  Running  1       3d15h  192.168.0.118 k8snode-01-gpu-desktop <none>  <none>
+kube-proxy-rx7sl                              1/1  Running  0       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+kube-scheduler-k8smaster-gpu-desktop          1/1  Running  1       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+$
+```
+
+노드에는 두 가지 파드가 있습니다.
+
+* Pod Network를 위한 `calico-node-rcrvd`
+* Service proxy를 위한 `kube-proxy-qmnxq`
+
+[TODO: Kubelet이 보이지 않는 이유가 궁금하네요.]
+
+```bash
+$ kubectl get pod --namespace=kube-system -o wide | grep k8snode
+calico-node-rcrvd                             1/1  Running  1       3d15h  192.168.0.118 k8snode-01-gpu-desktop <none>  <none>
+kube-proxy-qmnxq                              1/1  Running  1       3d15h  192.168.0.118 k8snode-01-gpu-desktop <none>  <none>
+$
+```
+
+마스터에는
+
+* Pod Network를 위한 
+  * `calico-kube-controllers-76d4774d89-wp8zx`
+  * `calico-node-w5swf`
+* Service proxy를 위한 `kube-proxy-rx7sl`
+
+* DNS를 위한
+  * `coredns-66bff467f8-dh65v`
+  * `coredns-66bff467f8-mb2mm`
+
+그리고 컨트롤 플레인 요소
+
+* kubectl 명령어와 커뮤니케이션을 위해 쓰이는 API Server를 위한 `kube-apiserver-k8smaster-gpu-desktop`
+* Controller Manager를 위한 `kube-controller-manager-k8smaster-gpu-desktop`
+* 클러스터 데이터 베이스 etcd를 위한 `etcd-k8smaster-gpu-desktop`
+* Scheduler를 위한 `kube-scheduler-k8smaster-gpu-desktop`
+
+가 있습니다.
+
+```bash
+$ kubectl get pod --namespace=kube-system -o wide | grep k8smaster
+NAME                                          READY STATUS RESTARTS AGE    IP            NODE          NOMINATED NODE READINESS GATES
+calico-kube-controllers-76d4774d89-wp8zx      1/1  Running  0       3d15h  172.16.37.65  k8smaster-gpu-desktop  <none>  <none>
+calico-node-w5swf                             1/1  Running  0       3d15h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+coredns-66bff467f8-dh65v                      1/1  Running  0       3d19h  172.16.37.66  k8smaster-gpu-desktop  <none>  <none>
+coredns-66bff467f8-mb2mm                      1/1  Running  0       3d19h  172.16.37.67  k8smaster-gpu-desktop  <none>  <none>
+etcd-k8smaster-gpu-desktop                    1/1  Running  0       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+kube-apiserver-k8smaster-gpu-desktop          1/1  Running  0       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+kube-controller-manager-k8smaster-gpu-desktop 1/1  Running  1       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+kube-proxy-rx7sl                              1/1  Running  0       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+kube-scheduler-k8smaster-gpu-desktop          1/1  Running  1       3d19h  192.168.0.109 k8smaster-gpu-desktop  <none>  <none>
+$
+```
 
 ## 다음
 
+* [쿠버네티스 대쉬보드 (Kubernetes Dashboard) 설치하기](deploy_k8s_dashboard.md)
 * [kubeadm init args로  단일 구성 클러스터 생성하기](create_a_single_control_plane_cluster_with_kubeadm_init_args.md)
 
-## 부록: `kubeadm init` 명령어 실행 시 연관있는 항목
+* [부록: `kubeadm init` 명령어](appendix-create_a_single_control_plane_cluster_with_kubeadm_init.md)
+  * `kubeadm init` 명령어 실행 시 연관있는 항목
+  * `sudo kubeadm init`명령어의 전체 메세지
+  * `sudo kubeadm init` 출력 메세지 뒷부분 설명
 
- `kubeadm init` 명령어는 아래의 복잡한 항목을 간단히 설치해줍니다.
+## 참고 문서
 
-```text
-preflight                    Run pre-flight checks
-kubelet-start                Write kubelet settings and (re)start the kubelet
-certs                        Certificate generation
-  /ca                          Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components
-  /apiserver                   Generate the certificate for serving the Kubernetes API
-  /apiserver-kubelet-client    Generate the certificate for the API server to connect to kubelet
-  /front-proxy-ca              Generate the self-signed CA to provision identities for front proxy
-  /front-proxy-client          Generate the certificate for the front proxy client
-  /etcd-ca                     Generate the self-signed CA to provision identities for etcd
-  /etcd-server                 Generate the certificate for serving etcd
-  /etcd-peer                   Generate the certificate for etcd nodes to communicate with each other
-  /etcd-healthcheck-client     Generate the certificate for liveness probes to healthcheck etcd
-  /apiserver-etcd-client       Generate the certificate the apiserver uses to access etcd
-  /sa                          Generate a private key for signing service account tokens along with its public key
-kubeconfig                   Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
-  /admin                       Generate a kubeconfig file for the admin to use and for kubeadm itself
-  /kubelet                     Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
-  /controller-manager          Generate a kubeconfig file for the controller manager to use
-  /scheduler                   Generate a kubeconfig file for the scheduler to use
-control-plane                Generate all static Pod manifest files necessary to establish the control plane
-  /apiserver                   Generates the kube-apiserver static Pod manifest
-  /controller-manager          Generates the kube-controller-manager static Pod manifest
-  /scheduler                   Generates the kube-scheduler static Pod manifest
-etcd                         Generate static Pod manifest file for local etcd
-  /local                       Generate the static Pod manifest file for a local, single-node local etcd instance
-upload-config                Upload the kubeadm and kubelet configuration to a ConfigMap
-  /kubeadm                     Upload the kubeadm ClusterConfiguration to a ConfigMap
-  /kubelet                     Upload the kubelet component config to a ConfigMap
-upload-certs                 Upload certificates to kubeadm-certs
-mark-control-plane           Mark a node as a control-plane
-bootstrap-token              Generates bootstrap tokens used to join a node to a cluster
-kubelet-finalize             Updates settings relevant to the kubelet after TLS bootstrap
-  /experimental-cert-rotation  Enable kubelet client certificate rotation
-addon                        Install required addons for passing Conformance tests
-  /coredns                     Install the CoreDNS addon to a Kubernetes cluster
-  /kube-proxy                  Install the kube-proxy addon to a Kubernetes cluster
-```
-
-참고로 이 중 컨트롤 플레인과 etcd에 해당하는 부분은 아래와 같습니다.
-
-```text
-control-plane
-  /apiserver
-  /controller-manager
-  /scheduler
-etcd
-  /local
-```
-
-## 부록: `sudo kubeadm init`명령어의 전체 메세지
-
-```bash
-$ sudo kubeadm init
-[sudo] password for k8smaster: 
-W0703 14:55:49.388649   10153 configset.go:202] WARNING: kubeadm cannot validate component configs for API groups [kubelet.config.k8s.io kubeproxy.config.k8s.io]
-[init] Using Kubernetes version: v1.18.5
-[preflight] Running pre-flight checks
-[preflight] Pulling images required for setting up a Kubernetes cluster
-[preflight] This might take a minute or two, depending on the speed of your internet connection
-[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
-[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
-[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
-[kubelet-start] Starting the kubelet
-[certs] Using certificateDir folder "/etc/kubernetes/pki"
-[certs] Generating "ca" certificate and key
-[certs] Generating "apiserver" certificate and key
-[certs] apiserver serving cert is signed for DNS names [k8smaster-gpu-desktop kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.0.109]
-[certs] Generating "apiserver-kubelet-client" certificate and key
-[certs] Generating "front-proxy-ca" certificate and key
-[certs] Generating "front-proxy-client" certificate and key
-[certs] Generating "etcd/ca" certificate and key
-[certs] Generating "etcd/server" certificate and key
-[certs] etcd/server serving cert is signed for DNS names [k8smaster-gpu-desktop localhost] and IPs [192.168.0.109 127.0.0.1 ::1]
-[certs] Generating "etcd/peer" certificate and key
-[certs] etcd/peer serving cert is signed for DNS names [k8smaster-gpu-desktop localhost] and IPs [192.168.0.109 127.0.0.1 ::1]
-[certs] Generating "etcd/healthcheck-client" certificate and key
-[certs] Generating "apiserver-etcd-client" certificate and key
-[certs] Generating "sa" key and public key
-[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
-[kubeconfig] Writing "admin.conf" kubeconfig file
-[kubeconfig] Writing "kubelet.conf" kubeconfig file
-[kubeconfig] Writing "controller-manager.conf" kubeconfig file
-[kubeconfig] Writing "scheduler.conf" kubeconfig file
-[control-plane] Using manifest folder "/etc/kubernetes/manifests"
-[control-plane] Creating static Pod manifest for "kube-apiserver"
-[control-plane] Creating static Pod manifest for "kube-controller-manager"
-W0703 14:57:09.900821   10153 manifests.go:225] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
-[control-plane] Creating static Pod manifest for "kube-scheduler"
-W0703 14:57:09.901429   10153 manifests.go:225] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
-[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
-[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
-[apiclient] All control plane components are healthy after 20.002615 seconds
-[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
-[kubelet] Creating a ConfigMap "kubelet-config-1.18" in namespace kube-system with the configuration for the kubelets in the cluster
-[upload-certs] Skipping phase. Please see --upload-certs
-[mark-control-plane] Marking the node k8smaster-gpu-desktop as control-plane by adding the label "node-role.kubernetes.io/master=''"
-[mark-control-plane] Marking the node k8smaster-gpu-desktop as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
-[bootstrap-token] Using token: zqw1lb.tuhllf8m7zntibcq
-[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
-[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to get nodes
-[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
-[bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
-[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
-[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
-[kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
-[addons] Applied essential addon: CoreDNS
-[addons] Applied essential addon: kube-proxy
-
-Your Kubernetes control-plane has initialized successfully!
-
-To start using your cluster, you need to run the following as a regular user:
-
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-You should now deploy a pod network to the cluster.
-Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
-
-Then you can join any number of worker nodes by running the following on each as root:
-
-kubeadm join 192.168.0.109:6443 --token zqw1lb.tuhllf8m7zntibcq \
-    --discovery-token-ca-cert-hash sha256:e3f15962b0535847add930d0e16fe92dc3e7ed139f29e0093e0b0766ca615671
-$
-```
+* [Set up a Bare Metal Kubernetes cluster with kubeadm](https://www.padok.fr/en/blog/kubeadm-kubernetes-cluster)
+* [쿠버네티스(kubernetes) 설치 및 환경 구성하기](https://medium.com/finda-tech/overview-8d169b2a54ff)
+* [우분투 Kubernetes 설치 방법](https://hiseon.me/linux/ubuntu/ubuntu-kubernetes-install/)
