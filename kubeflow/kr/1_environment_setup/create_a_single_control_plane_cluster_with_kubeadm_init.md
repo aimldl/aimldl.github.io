@@ -255,6 +255,17 @@ The connection to the server localhost:8080 was refused - did you specify the ri
 $
 ```
 
+
+
+```bash
+$ sudo kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+[sudo] password for k8snode: 
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+$
+```
+
+
+
 ## 다음
 
 * [kubeadm init args로  단일 구성 클러스터 생성하기](create_a_single_control_plane_cluster_with_kubeadm_init_args.md)
