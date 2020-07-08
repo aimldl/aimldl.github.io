@@ -306,3 +306,15 @@ $
 
 이 노드가 클러스터에 조인 (join) 했고, 확인하려면 컨트롤 플레인 (the control-plane), 즉 마스터에서 `kubectl get nodes`명령어를 실행하라는 메세지가 출력됐습니다. 이렇게 해서 단일 구성 클러스터의 생성을 완료했습니다. 
 
+
+
+```bash
+$ sudo kubectl get nodes
+[sudo] password for k8smaster: 
+NAME                     STATUS     ROLES    AGE     VERSION
+atckevin                 NotReady   <none>   54s     v1.18.5
+k8smaster-gpu-desktop    Ready      master   4d3h    v1.18.5
+k8snode-01-gpu-desktop   Ready      <none>   3d22h   v1.18.5
+$
+```
+
