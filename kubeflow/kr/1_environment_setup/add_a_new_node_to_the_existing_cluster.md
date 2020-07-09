@@ -318,3 +318,4 @@ k8snode-01-gpu-desktop   Ready      <none>   3d22h   v1.18.5
 $
 ```
 
+<img src="images/kubernetes-dashboard-cluster_nodes-atc_kevin-not_ready.png">

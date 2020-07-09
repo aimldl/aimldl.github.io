@@ -13,7 +13,9 @@
 
 쿠버네티스 공식 문서 ([컨테이너 런타임](https://kubernetes.io/ko/docs/setup/production-environment/container-runtimes/))에서는 Docker와 CRI-O 의 설치 방법을 설명합니다. 쿠버네티스는 개발 초기에는 런타임 프로그램으로 Docker를 사용했고, CRI-O는 Docker의 단점을 극복하여 인기가 상승하고 있는 컨테이너 런타임입니다. 
 
-여기서는 Docker의 설치만 다룹니다. 설치 과정은 일반적인 Docker 설치 과정과 동일합니다. 쿠버네티스를 설치하고자 하는 모든 컴퓨터 (마스터와 모든 워커 노드)에 먼저 설치해야 합니다.
+여기서는 Docker의 설치만 다룹니다. 쿠버네티스 개발 초창기부터 Docker를 고려했기 때문입니다. 쿠버네티스 공식 문서의 [노드 구성 검증하기](https://kubernetes.io/ko/docs/setup/best-practices/node-conformance/)를 보면, 노드가 쿠버네티스를 위한 최소 요구조건을 만족하지는 검증하는 [노드 적합성 테스트](https://kubernetes.io/ko/docs/setup/best-practices/node-conformance/#%EB%85%B8%EB%93%9C-%EC%A0%81%ED%95%A9%EC%84%B1-%ED%85%8C%EC%8A%A4%ED%8A%B8)는 컨테이너 런타임으로 Docker인 경우만 지원합니다.
+
+설치 과정은 일반적인 Docker 설치 과정과 동일합니다. 쿠버네티스를 설치하고자 하는 모든 컴퓨터 (마스터와 모든 워커 노드)에 먼저 설치해야 합니다.
 
 ## 1. Docker 설치하기
 

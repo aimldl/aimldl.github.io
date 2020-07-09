@@ -1,3 +1,5 @@
+* Rev.2: 2020-07-09 (Thu)
+* Rev.1: 2020-07-08 (Wed)
 * Draft: 2020-07-07 (Tue)
 
 # 쿠버네티스 대쉬보드 설치하기
@@ -20,9 +22,7 @@ $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0
 토큰을 확인합니다.
 
 ```bash
-$ kubectl -n kube-system describe $(kubectl -n kube-system \
->     get secret -n kube-system -o name | grep namespace) | grep token
-$
+$ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token
 ```
 
 대쉬보드를 실행합니다.
@@ -35,11 +35,11 @@ $ kubectl proxy
 
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login
 
-<img src="images/kubernetes-dashboard-web_browser-token.png">
+<img src="images/kubernetes-dashboard-web_browser-token.png" align=left>
 
 토큰 값을 입력하고 `Sign in`버튼을 누릅니다.
 
-<img src="images/kubernetes-dashboard-first_launch.png">
+<img src="images/kubernetes-dashboard-first_launch.png" align=left>
 
 대시보드의 내용을 훑어봅니다. 
 
@@ -109,8 +109,7 @@ $
 ### Step 1. 마스터에서 기존 토큰 값을 확인합니다.
 
 ```bash
-$ kubectl -n kube-system describe $(kubectl -n kube-system \
->     get secret -n kube-system -o name | grep namespace) | grep token
+$ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token
 Name:         namespace-controller-token-g85r7
 Type:  kubernetes.io/service-account-token
 token:      a ... z
@@ -118,6 +117,14 @@ $
 ```
 
 위의 예에서  `a ... z`로 표기된 token값을 복사합니다.
+
+참고로 `$( ... )` 안의 명령어는 다음 스트링을 리턴합니다.
+
+```bash
+$ kubectl -n kube-system get secret -n kube-system -o name | grep namespace
+secret/namespace-controller-token-g85r7
+$
+```
 
 ### Step 2. `kubectl proxy` 명령어로 대쉬보드를 실행합니다.
 
@@ -134,21 +141,106 @@ Starting to serve on 127.0.0.1:8001
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login
 ```
 
-<img src="images/kubernetes-dashboard-web_browser-token.png">
+<img src="images/kubernetes-dashboard-web_browser-token.png" align=left>
 
 ### Step 4. 인증 토큰으로 대쉬보드에 접속합니다. 
 
 토큰 값을 붙여넣기/입력하고, `Sign in`버튼을 누릅니다.
 
-<img src="images/kubernetes-dashboard-web_browser-token-entered.png">
+<img src="images/kubernetes-dashboard-web_browser-token-entered.png" align=left>
 
 `Sign in`버튼을 누르면 대시보드의 메인 화면이 나옵니다. 
 
-<img src="images/kubernetes-dashboard-first_launch.png">
+<img src="images/kubernetes-dashboard-first_launch.png" align=left>
 
-### Step 5. 대시보드 훑어보기
+## 대시보드 훑어보기
 
 대시보드 사용에 대한 자세한 내용은 [kubernetes/dashboard의 GitHub 프로젝트 문서](https://github.com/kubernetes/dashboard)를 참고하세요.
+
+### Cluster > Cluster Roles
+
+<img src="images/kubernetes-dashboard-cluter_cluter_roles.png" align=left>
+
+### Cluster > Namespaces
+
+<img src="images/kubernetes-dashboard-cluter_namespaces.png" align=left>
+
+### Cluster > Nodes
+
+<img src="images/kubernetes-dashboard-cluter_nodes.png" align=left>
+
+### Namespace
+
+실제 화면에서는 이렇게 전체 네임스페이스가 보이지 않지만, 보기 쉽도록 편집했습니다.
+
+<img src="images/kubernetes-dashboard-namespace.png" align=left>
+
+
+
+### Overview
+
+Overview에는 선택한 네임 스페이스 아래에 있는 메뉴의 항목들을 모두 볼 수 있습니다.
+
+#### Default 네임스페이스
+
+<img src="images/kubernetes-dashboard-overview.png" align=left>
+
+Default 네임 스페이스의 경우에 두 개의 항목이 있습니다. 각 항목에 해당하는 메뉴의 내용을 비교해 보면 Overview의 내용과 동일하다는 것을 알 수 있습니다.
+
+### Discovery and Load Balancing
+
+#### Services
+
+두 가지 메뉴는 현 상황에서 동일한 내용을 보여줍니다.
+
+<img src="images/kubernetes-dashboard-services.png" align=left>
+
+### Config and Storage
+
+####   Secrets
+
+두 가지 메뉴는 현 상황에서 동일한 내용을 보여줍니다.
+
+<img src="images/kubernetes-dashboard-secrets.png" align=left>
+
+#### kube-system 네임스페이스
+
+<img src="images/kubernetes-dashboard-overview-workloads.png">
+
+<img src="images/kubernetes-dashboard-overview-deployments.png">
+
+<img src="images/kubernetes-dashboard-overview-pods.png">
+
+<img src="images/kubernetes-dashboard-overview-replica_sets.png">
+
+<img src="images/kubernetes-dashboard-overview-config_and_storage.png">
+
+<img src="images/kubernetes-dashboard-overview-secrets.png">
+
+
+
+### Custom Resource Definitions
+
+<img src="images/kubernetes-dashboard-custom_resource_definitions.png" align=left>
+
+### Settings
+
+<img src="images/kubernetes-dashboard-settings.png" align=left>
+
+### About
+
+<img src="images/kubernetes-dashboard-about.png" align=left>
+
+
+
+### 나머지 항목들
+
+```text
+There is nothing to display here
+      No resources found
+```
+
+라는 메세지가 보입니다.
 
 ## 참고 문서
 
@@ -158,31 +250,27 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 
 ## 부록: 
 
-`kubeadm token list`명령어를 다시 실행하면 신규 생성된 토큰에 대한 정보가 보입니다.
+대쉬보드에 접속하기 위해 토큰을 입력해야 합니다.
+
+<img src="images/kubernetes-dashboard-web_browser-token.png" align=left>
+
+
+
+이 때 
 
 ```bash
-$ kubeadm token list
-TOKEN                    TTL  EXPIRES                    ...  EXTRA GROUPS
-qioqmq.phvo5rml0cy4bctd  23h  2020-07-09T14:22:55+09:00  ...  system:bootstrappers:kubeadm:default-node-token
-$
+$ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token
 ```
 
+명령어로 토큰을 확인하지 않고, `kubeadm token`명령어를 쓰게 되면 어떻게 될까요?
 
-
-`kubeadm token list`명령어를 다시 실행하면 신규 생성된 토큰에 대한 정보가 보입니다.
-
-```bash
-$ kubeadm token list
-TOKEN                    TTL  EXPIRES                    ...  EXTRA GROUPS
-qioqmq.phvo5rml0cy4bctd  23h  2020-07-09T14:22:55+09:00  ...  system:bootstrappers:kubeadm:default-node-token
-$
-```
+ `kubeadm token list`명령어를 실행하면 생성된 토큰의 정보가 보입니다. 생성된 토큰은 24시간 후에 소멸되므로, 24시간이 지난 경우엔 아래처럼 보이지 않습니다.
 
 ```bash
 $ kubeadm token list
 ```
 
-없다면 새로 만듭니다. 생성된 토큰은 24시간 후에 소멸됩니다.
+토큰을 새로 만듭니다. 
 
 ```bash
 $ kubeadm token create
@@ -190,6 +278,19 @@ qioqmq.phvo5rml0cy4bctd
 $
 ```
 
+`kubeadm token list`명령어를 다시 실행하면 신규 생성된 토큰에 대한 정보가 보입니다.
+
+```bash
+$ kubeadm token list
+TOKEN                    TTL  EXPIRES                    ...  EXTRA GROUPS
+qioqmq.phvo5rml0cy4bctd  23h  2020-07-09T14:22:55+09:00  ...  system:bootstrappers:kubeadm:default-node-token
+$
+```
+
+이 토큰 `qioqmq.phvo5rml0cy4bctd`을 입력하면 
+
 <img src="images/kubernetes-dashboard-web_browser-token-wrong_token.png">
+
+대쉬보드에 접속할 수 있습니다. 하지만 아무 것도 보이지 않습니다. 메뉴의 다른 메뉴를 클릭해도 `There is nothing to display here`라는 메세지만 보입니다.
 
 <img src="images/kubernetes-dashboard-first_launch-wrong_token.png">
