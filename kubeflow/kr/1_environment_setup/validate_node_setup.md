@@ -131,3 +131,27 @@ Ginkgo ran 1 suite in 403.927172ms
 Test Suite Failed
 $
 ```
+
+Google search: kubernetes system validation failed: unsupported docker version
+
+You need to downgrade docker to 18.06, until 18.09 is validated and supported by kubeadm:
+
+https://github.com/kubernetes/kubernetes/blob/master/cmd/kubeadm/app/util/system/docker_validator.go#L41
+
+It was only recently that kubeadm started to support anything beyond version 17.03: #3223
+
+Apparently you are also missing other binaries, such as socat and maybe also crictl...
+
+```
+Removing the old version with :
+sudo apt-get purge docker-ce
+sudo rm -rf /var/lib/docker
+
+And then reinstall as @afbjorklund said :
+
+apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
+```
+
+[v1.18 릴리스 노트](https://kubernetes.io/ko/docs/setup/release/notes/)
+
+[Kubernetes version and version skew support policy](https://kubernetes.io/docs/setup/release/version-skew-policy/)
