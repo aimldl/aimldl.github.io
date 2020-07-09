@@ -372,4 +372,17 @@ containerd:
   ...
 $
 ```
-모두 원하는 버전이 설치되었습니다.
+모두 원하는 버전이 설치되었습니다
+
+노드 테스트는 여전히 실패가 뜹니다.
+Google search: kubernetes Node Conformance Test system validation failed: unsupported docker version: 19.03.11
+
+[Node conformance test NodeProblemDetector failed against all docker ce and ee versions from 17.06.--19.03](https://github.com/kubernetes/kubernetes/issues/78186)
+
+ 이 글을 보면 모든 Docker 버전에 대해 테스트 했지만 실패했다고 되어 있습니다.
+ 
+ 검색 결과가 몇 개 나오지 않아서 검색 범위를 넖혀 봅니다.
+ Google search: kubernetes Node Conformance Test system validation failed: unsupported docker version: 19.03.11
+ 
+ 유용한 정보는 찾을 수 없습니다.
+ 
