@@ -155,3 +155,71 @@ apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
 [v1.18 릴리스 노트](https://kubernetes.io/ko/docs/setup/release/notes/)
 
 [Kubernetes version and version skew support policy](https://kubernetes.io/docs/setup/release/version-skew-policy/)
+
+[Container runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
+
+Version 19.03.11 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well. 
+
+내 버전은 하나 높은 19.03.12이므로 다운 그레이드 해줘야 함.
+버전 확인
+```bash
+$ docker version
+Client: Docker Engine - Community
+ Version:           19.03.12
+ API version:       1.40
+ Go version:        go1.13.10
+ Git commit:        48a66213fe
+ Built:             Mon Jun 22 15:45:36 2020
+ OS/Arch:           linux/amd64
+ Experimental:      false
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/version: dial unix /var/run/docker.sock: connect: permission denied
+$
+```
+
+Docker 제거하기
+```bash
+$ dpkg -l | grep -i docker
+ii  docker-ce                                  5:19.03.12~3-0~ubuntu-bionic                     amd64        Docker: the open-source application container engine
+ii  docker-ce-cli                              5:19.03.12~3-0~ubuntu-bionic                     amd64        Docker CLI: the open-source application container engine
+$ sudo apt-get purge -y docker-engine docker docker.io docker-ce
+  ...
+Package 'docker' is not installed, so not removed
+Package 'docker.io' is not installed, so not removed
+Package 'docker-engine' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  aufs-tools cgroupfs-mount pigz
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  ...
+$ sudo apt-get autoremove -y --purge docker-engine docker docker.io docker-ce
+  ...
+Package 'docker' is not installed, so not removed
+Package 'docker.io' is not installed, so not removed
+Package 'docker-ce' is not installed, so not removed
+Package 'docker-engine' is not installed, so not removed
+The following packages will be REMOVED:
+  aufs-tools* cgroupfs-mount* pigz*
+  ...
+$
+```
+참고: [Uninstall Docker]()
+
+
+설치하기
+[ Container runtimes > Docker](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker)
+
+다운 그레이드 한 버전을 설치했지만,
+```bash
+# docker version
+Client: Docker Engine - Community
+ Version:           19.03.12
+ API version:       1.40
+ Go version:        go1.13.10
+ Git commit:        48a66213fe
+ Built:             Mon Jun 22 15:45:36 2020
+ OS/Arch:           linux/amd64
+ Experimental:      false
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+#
+```
+버전에 문제가 있음. 공식 문서의 명령어를 썼지만 안 됨.
