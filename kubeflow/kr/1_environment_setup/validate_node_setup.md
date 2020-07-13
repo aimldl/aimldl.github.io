@@ -286,57 +286,7 @@ docker-ce | 18.06.0~ce~3-0~ubuntu | https://download.docker.com/linux/ubuntu bio
 $ sudo apt-get install docker-ce=5:19.03.11~3-0~ubuntu-bionic docker-ce-cli=5:19.03.11~3-0~ubuntu-bionic containerd.io
 ```
 
-```bash
-$ apt-get install docker-ce=5:19.03.11~3-0~ubuntu-bionic docker-ce-cli=5:19.03.11~3-0~ubuntu-bionic containerd.io
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-containerd.io is already the newest version (1.2.13-2).
-The following additional packages will be installed:
-  aufs-tools cgroupfs-mount pigz
-The following NEW packages will be installed:
-  aufs-tools cgroupfs-mount docker-ce pigz
-The following packages will be DOWNGRADED:
-  docker-ce-cli
-0 upgraded, 4 newly installed, 1 downgraded, 0 to remove and 80 not upgraded.
-Need to get 63.9 MB of archives.
-After this operation, 107 MB of additional disk space will be used.
-Do you want to continue? [Y/n] 
-  ...
-$
-```
-```bash
-# docker version
-Client: Docker Engine - Community
- Version:           19.03.11
- API version:       1.40
- Go version:        go1.13.10
- Git commit:        42e35e61f3
- Built:             Mon Jun  1 09:12:22 2020
- OS/Arch:           linux/amd64
- Experimental:      false
 
-Server: Docker Engine - Community
- Engine:
-  Version:          19.03.11
-  API version:      1.40 (minimum version 1.12)
-  Go version:       go1.13.10
-  Git commit:       42e35e61f3
-  Built:            Mon Jun  1 09:10:54 2020
-  OS/Arch:          linux/amd64
-  Experimental:     false
- containerd:
-  Version:          1.2.13
-  GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429
- runc:
-  Version:          1.0.0-rc10
-  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
- docker-init:
-  Version:          0.18.0
-  GitCommit:        fec3683
-#
-```
-맞는 버전이 설치 됨.
 
 # lsb_release -cs
 bionic
@@ -359,7 +309,7 @@ $ apt-get install docker-ce=5:19.03.11~3-0~ubuntu-bionic docker-ce-cli=5:19.03.1
 ```
 버전을 확인합니다.
 ```bash
-$ docker version
+$ sudo docker version
 Client: Docker Engine - Community
  Version:           19.03.11
   ...
@@ -380,9 +330,12 @@ Google search: kubernetes Node Conformance Test system validation failed: unsupp
 [Node conformance test NodeProblemDetector failed against all docker ce and ee versions from 17.06.--19.03](https://github.com/kubernetes/kubernetes/issues/78186)
 
  이 글을 보면 모든 Docker 버전에 대해 테스트 했지만 실패했다고 되어 있습니다.
- 
+
  검색 결과가 몇 개 나오지 않아서 검색 범위를 넖혀 봅니다.
  Google search: kubernetes Node Conformance Test system validation failed: unsupported docker version: 19.03.11
- 
+
  유용한 정보는 찾을 수 없습니다.
- 
+
+## 다음
+
+[쿠버네티스 대쉬보드 (Kubernetes Dashboard) 설치하기](deploy_k8s_dashboard.md)

@@ -242,6 +242,10 @@ There is nothing to display here
 
 라는 메세지가 보입니다.
 
+## 다음
+
+[클러스터에 신규 노드 조인 (Join)하기](add_a_new_node_to_the_existing_cluster.md)
+
 ## 참고 문서
 
 * [Kubernetes Dashboard](https://github.com/kubernetes/dashboard), kubernetes/dashboard 공식 github repository
