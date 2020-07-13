@@ -1,25 +1,19 @@
 * 2020-07-09 (Thu)
 # 클러스터에 붙은 노드 구성 검증하기
 
+[Validate node setup](https://kubernetes.io/docs/setup/best-practices/node-conformance/)
+
+[노드 구성 검증하기](https://kubernetes.io/ko/docs/setup/best-practices/node-conformance/)의 노드 적합성 테스트의 명령어는 다음과 같습니다.
+
 ```bash
 $ sudo docker run -it --rm --privileged --net=host -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result k8s.gcr.io/node-test:0.2
 ```
 
+테스트 결과가 실패했습니다.
+
 ```bash
 $ sudo docker run -it --rm --privileged --net=host -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result k8s.gcr.io/node-test:0.2
-Unable to find image 'k8s.gcr.io/node-test:0.2' locally
-0.2: Pulling from node-test
-43c265008fae: Pull complete 
-a3ed95caeb02: Pull complete 
-a55c87cb1c33: Pull complete 
-56929588bea5: Pull complete 
-Digest: sha256:18943086438949f8574d84a8f5cd32ec3e5607fb3a5e9100161373a46dc63ab3
-Status: Downloaded newer image for k8s.gcr.io/node-test:0.2
-Running Suite: E2eNode Suite
-============================
-Random Seed: 1594279385 - Will randomize all specs
-Will run 88 of 162 specs
-
+  ...
 Running in parallel across 8 nodes
 
 OS: Linux
@@ -53,7 +47,6 @@ CGROUPS_MEMORY: enabled
 DOCKER_VERSION: 19.03.12
 F0709 16:23:05.757598     155 e2e_node_suite_test.go:96] system validation failed: unsupported docker version: 19.03.12
 
-
 Failure [0.135 seconds]
 [BeforeSuite] BeforeSuite 
 /go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
@@ -66,64 +59,7 @@ Failure [0.135 seconds]
       system validation failed: exit status 1
 
   /go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:122
-------------------------------
-Failure [0.151 seconds]
-[BeforeSuite] BeforeSuite 
-/go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-
-  BeforeSuite on Node 1 failed
-
-  /go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-------------------------------
-Failure [0.151 seconds]
-[BeforeSuite] BeforeSuite 
-/go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-
-  BeforeSuite on Node 1 failed
-
-  /go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-------------------------------
-Failure [0.151 seconds]
-[BeforeSuite] BeforeSuite 
-/go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-
-  BeforeSuite on Node 1 failed
-
-  /go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-------------------------------
-Failure [0.152 seconds]
-[BeforeSuite] BeforeSuite 
-/go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-
-  BeforeSuite on Node 1 failed
-
-  /go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-------------------------------
-Failure [0.151 seconds]
-[BeforeSuite] BeforeSuite 
-/go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-
-  BeforeSuite on Node 1 failed
-
-  /go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-------------------------------
-Failure [0.151 seconds]
-[BeforeSuite] BeforeSuite 
-/go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-
-  BeforeSuite on Node 1 failed
-
-  /go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-------------------------------
-Failure [0.153 seconds]
-[BeforeSuite] BeforeSuite 
-/go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-
-  BeforeSuite on Node 1 failed
-
-  /go/src/k8s.io/kubernetes/_output/dockerized/go/src/k8s.io/kubernetes/test/e2e_node/e2e_node_suite_test.go:157
-------------------------------
-
+  ...
 Ran 88 of 162 Specs in 0.239 seconds
 FAIL! -- 0 Passed | 88 Failed | 0 Pending | 74 Skipped 
 
@@ -131,6 +67,10 @@ Ginkgo ran 1 suite in 403.927172ms
 Test Suite Failed
 $
 ```
+
+`unsupported docker version: 19.03.12`이라고 해서, 19.03.12을 제거하고 쿠버네티스가 지원하는 최신 버전인 19.03.11을 재설치 했습니다.
+
+
 
 Google search: kubernetes system validation failed: unsupported docker version
 
@@ -380,9 +320,20 @@ Google search: kubernetes Node Conformance Test system validation failed: unsupp
 [Node conformance test NodeProblemDetector failed against all docker ce and ee versions from 17.06.--19.03](https://github.com/kubernetes/kubernetes/issues/78186)
 
  이 글을 보면 모든 Docker 버전에 대해 테스트 했지만 실패했다고 되어 있습니다.
- 
+
  검색 결과가 몇 개 나오지 않아서 검색 범위를 넖혀 봅니다.
  Google search: kubernetes Node Conformance Test system validation failed: unsupported docker version: 19.03.11
- 
+
  유용한 정보는 찾을 수 없습니다.
- 
+
+버전을 맞춘 후에 남은 에러를 제거하기 위해 구글링했지만, 공식 문서에 나오는 명령어를 쓰면 안 된다는 "신호"를 많이 봤습니다. 결정적으로
+
+> Google search: validate kubernetes Node Conformance Test
+>
+> Couple of thing I can suggest you to run Conformance Test:
+> 1) Forget about https://kubernetes.io/docs/setup/node-conformance/
+> 2) Install [kubetest](https://github.com/kubernetes/test-infra/tree/master/kubetest) and follow [Conformance Testing in Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/devel/conformance-tests.md) instruction
+> 3) Use [sonobuoy](https://github.com/heptio/sonobuoy) solution from Heptio. More information you can find here: [Conformance Testing - 1.11+](https://github.com/heptio/sonobuoy/blob/master/docs/conformance-testing.md)
+> Good Luck!
+>
+> 출처: [Kubernetes Node Conformance Test](https://stackoverflow.com/questions/54129836/kubernetes-node-conformance-test)

@@ -248,7 +248,7 @@ $
 
 쿠버네티스 클러스터의 아키텍쳐를 참고해서 설치된 파드를 확인해봅니다. 참고로 컨테이너를 실행시키는 최소 단위인 파드는 생성/소멸을 반복할 수 있고, 서로 통신할 수 있도록 Pod Network가 형성됩니다. Pod Network와 CNI Network는 동의어입니다.
 
-<img src="/home/k8smaster/github/aimldl.github.io/kubeflow/kr/1_environment_setup/images/kubernetes_architecture.jpg">
+<img src="images/kubernetes_architecture.jpg">
 
 Source: [Kubernetes architecture and concepts tutorial - Kubernetes Administration for beginners(9:18)](https://www.youtube.com/watch?v=oFglQ50O_rU)
 
