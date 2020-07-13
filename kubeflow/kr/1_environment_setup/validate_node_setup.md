@@ -1,15 +1,97 @@
 * 2020-07-09 (Thu)
 # 클러스터에 붙은 노드 구성 검증하기
 
-[Validate node setup](https://kubernetes.io/docs/setup/best-practices/node-conformance/)
 
-[노드 구성 검증하기](https://kubernetes.io/ko/docs/setup/best-practices/node-conformance/)의 노드 적합성 테스트의 명령어는 다음과 같습니다.
+
+> Google search: validate kubernetes Node Conformance Test
+>
+> Couple of thing I can suggest you to run Conformance Test:
+> 1) Forget about https://kubernetes.io/docs/setup/node-conformance/
+> 2) Install [kubetest](https://github.com/kubernetes/test-infra/tree/master/kubetest) and follow [Conformance Testing in Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/devel/conformance-tests.md) instruction
+> 3) Use [sonobuoy](https://github.com/heptio/sonobuoy) solution from Heptio. More information you can find here: [Conformance Testing - 1.11+](https://github.com/heptio/sonobuoy/blob/master/docs/conformance-testing.md)
+> Good Luck!
+>
+> 출처: [Kubernetes Node Conformance Test](https://stackoverflow.com/questions/54129836/kubernetes-node-conformance-test)
+Kubetest를 설치해봅니다.
+
+> ## Kubetest > Installation
+>
+> Please clone this repo and then run `GO111MODULE=on go install ./kubetest` from the clone.
+>
+> Common alternatives:
+>
+> ```text
+> go install k8s.io/test-infra/kubetest  # if you check out test-infra
+> bazel run //kubetest  # use bazel to build and run
+> ```
+>
+> 출처: [test-infra](https://github.com/kubernetes/test-infra)/[kubetest](https://github.com/kubernetes/test-infra/tree/master/kubetest)/
+
+```bash
+$ git clone https://github.com/kubernetes/test-infra.git
+$ cd test-infra/
+# Go is necessary.
+$ sudo apt install gccgo-go
+  ...
+$ GO111MODULE=on go install ./kubetest
+kubetest/aksengine_helpers.go:30:2: cannot find package "github.com/Azure/azure-sdk-for-go/services/authorization/mgmt/2015-07-01/authorization" in any of:
+  ...
+$ go install ./kubetest
+kubetest/aksengine_helpers.go:30:2: cannot find package "github.com/Azure/azure-sdk-for-go/services/authorization/mgmt/2015-07-01/authorization" in any of:
+  ...
+$
+```
+
+설치가 안 되고 에러 메세지가 발생합니다. Azure 관련 메세지가 나오는 걸 보면, Azure 상의 쿠버네티스를 테스트하는 명령어 일지도 모르겠네요. Azure와는 상관이 없으므로 이 명령어도 무시하기로 합니다.
+
+노드 적합성 테스트는 그냥 넘어가기로 합니다.
+
+## 다음
+
+[쿠버네티스 대쉬보드 (Kubernetes Dashboard) 설치하기](deploy_k8s_dashboard.md)
+
+## 부록: 공식 문서의 노드 적합성 테스트의 명령어를 쓰지 않는 이유
+
+쿠버네티스 공식 문서에는
+
+* [노드 구성 검증하기](https://kubernetes.io/ko/docs/setup/best-practices/node-conformance/) (한국어), [Validate node setup](https://kubernetes.io/docs/setup/best-practices/node-conformance/) (영어)
+
+에 관한 문서가 있습니다. 이 문서에 나오는 명령어는 무시해도 좋다는 결론이 났습니다.
+
+[노드 구성 검증하기](https://kubernetes.io/ko/docs/setup/best-practices/node-conformance/)의 노드 적합성 테스트의 명령어
 
 ```bash
 $ sudo docker run -it --rm --privileged --net=host -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result k8s.gcr.io/node-test:0.2
 ```
 
-테스트 결과가 실패했습니다.
+를 실행하면 테스트가 실패합니다. 실패 원인을 제거하기 위해 구글 검색해봅니다.
+
+> Google search: kubernetes Node Conformance Test system validation failed: unsupported docker version: 19.03.11
+>
+>  이 글을 보면 모든 Docker 버전에 대해 테스트 했지만 실패했다고 되어 있습니다.
+>
+> 출처: [Node conformance test NodeProblemDetector failed against all docker ce and ee versions from 17.06.--19.03](https://github.com/kubernetes/kubernetes/issues/78186)
+
+> 검색 결과가 몇 개 나오지 않아서 검색 범위를 넖혀 봅니다.
+>  Google search: kubernetes Node Conformance Test system validation failed: unsupported docker version: 19.03.11
+>
+> 실패원인 제거를 위해 찾아본 다른 문서에서도 공식 문서의 명령어가 안 된다는 "신호"를 많이 봤습니다. 
+
+> Google search: validate kubernetes Node Conformance Test
+>
+> Couple of thing I can suggest you to run Conformance Test:
+> 1) Forget about https://kubernetes.io/docs/setup/node-conformance/
+> 2) Install [kubetest](https://github.com/kubernetes/test-infra/tree/master/kubetest) and follow [Conformance Testing in Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/devel/conformance-tests.md) instruction
+> 3) Use [sonobuoy](https://github.com/heptio/sonobuoy) solution from Heptio. More information you can find here: [Conformance Testing - 1.11+](https://github.com/heptio/sonobuoy/blob/master/docs/conformance-testing.md)
+> Good Luck!
+>
+> 출처: [Kubernetes Node Conformance Test](https://stackoverflow.com/questions/54129836/kubernetes-node-conformance-test)
+
+이 문서는 노드 적합성 테스트 명령어 잊어버리라는 조언합니다. 그래서 잊기로 합니다.
+
+## 부록: 노드 적합성 테스트의 명령어 실행 과정
+
+### Problem: system validation failed: unsupported docker version: 19.03.12
 
 ```bash
 $ sudo docker run -it --rm --privileged --net=host -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result k8s.gcr.io/node-test:0.2
@@ -68,59 +150,63 @@ Test Suite Failed
 $
 ```
 
-`unsupported docker version: 19.03.12`이라고 해서, 19.03.12을 제거하고 쿠버네티스가 지원하는 최신 버전인 19.03.11을 재설치 했습니다.
+### Hint: system validation failed: unsupported docker version: 19.03.12
 
+에러 메세지: `system validation failed: unsupported docker version: 19.03.12`
 
+> Google search: kubernetes system validation failed: unsupported docker version
+>
+> You need to downgrade docker to 18.06, until 18.09 is validated and supported by kubeadm
 
-Google search: kubernetes system validation failed: unsupported docker version
+> Version 19.03.11 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well. 
+>
+> 출처:
+>
+> * [v1.18  릴리스 노트](https://kubernetes.io/ko/docs/setup/release/notes/)
+>
+> * [Kubernetes version and version skew support policy](https://kubernetes.io/docs/setup/release/version-skew-policy/)
+>
+> * [Container runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
 
-You need to downgrade docker to 18.06, until 18.09 is validated and supported by kubeadm:
+현재 설치된 도커 버전을 확인합니다.
 
-https://github.com/kubernetes/kubernetes/blob/master/cmd/kubeadm/app/util/system/docker_validator.go#L41
-
-It was only recently that kubeadm started to support anything beyond version 17.03: #3223
-
-Apparently you are also missing other binaries, such as socat and maybe also crictl...
-
-```
-Removing the old version with :
-sudo apt-get purge docker-ce
-sudo rm -rf /var/lib/docker
-
-And then reinstall as @afbjorklund said :
-
-apt-get update && apt-get install docker-ce=18.06.0~ce~3-0~ubuntu
-```
-
-[v1.18 릴리스 노트](https://kubernetes.io/ko/docs/setup/release/notes/)
-
-[Kubernetes version and version skew support policy](https://kubernetes.io/docs/setup/release/version-skew-policy/)
-
-[Container runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/)
-
-Version 19.03.11 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well. 
-
-내 버전은 하나 높은 19.03.12이므로 다운 그레이드 해줘야 함.
-버전 확인
 ```bash
 $ docker version
 Client: Docker Engine - Community
  Version:           19.03.12
- API version:       1.40
- Go version:        go1.13.10
- Git commit:        48a66213fe
- Built:             Mon Jun 22 15:45:36 2020
- OS/Arch:           linux/amd64
- Experimental:      false
-Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/version: dial unix /var/run/docker.sock: connect: permission denied
+  ...
 $
 ```
 
-Docker 제거하기
+현 시점에 도커 최신 버전인`19.03.12`가 설치되어 있습니다. 쿠버네티스가 지원하는 최신 버전은 19.03.11입니다. 버전이 하나 높은 19.03.12이므로 19.03.11로 다운 그레이드 해야합니다.
+
+우선 Docker를 제거합니다. 자세한 내용은 [Install docker on Ubuntu](https://github.com/aimldl/technical_skills/blob/master/computing_environments/docker/how_to_install/docker_on_ubuntu.md)의 마지막에 있는 `Uninstall Docker`를 참고하세요.
+
+#### Uninstall
+
+```bash
+$ sudo apt-get purge docker-ce docker-ce-cli containerd.io
+$ sudo rm -rf /var/lib/docker
+```
+
+#### 제거 확인
+
+```bash
+$ docker version
+-bash: /usr/bin/docker: No such file or directory
+$
+```
+
+제거를 위해 아래 명령어가 쓰였는 데 모두 제거 되지 않아 위의 명령어를 썼습니다.
+
 ```bash
 $ dpkg -l | grep -i docker
-ii  docker-ce                                  5:19.03.12~3-0~ubuntu-bionic                     amd64        Docker: the open-source application container engine
-ii  docker-ce-cli                              5:19.03.12~3-0~ubuntu-bionic                     amd64        Docker CLI: the open-source application container engine
+ii  docker-ce      5:19.03.12~3-0~ubuntu-bionic  amd64  Docker:     the open-source application container engine
+ii  docker-ce-cli  5:19.03.12~3-0~ubuntu-bionic  amd64  Docker CLI: the open-source application container engine
+$
+```
+
+```bash
 $ sudo apt-get purge -y docker-engine docker docker.io docker-ce
   ...
 Package 'docker' is not installed, so not removed
@@ -142,27 +228,43 @@ The following packages will be REMOVED:
   ...
 $
 ```
-참고: [Uninstall Docker]()
 
+### 다운 그레이드 버전 설치하기
 
-설치하기
-[ Container runtimes > Docker](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker)
+설치 시 원하는 버전을 `VERSION_STRING`으로 지정해서 설치합니다. 설치 전반에 관한 내용은 [ Container runtimes > Docker](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#docker)를 참고하세요.
 
-다운 그레이드 한 버전을 설치했지만,
 ```bash
-# docker version
-Client: Docker Engine - Community
- Version:           19.03.12
- API version:       1.40
- Go version:        go1.13.10
- Git commit:        48a66213fe
- Built:             Mon Jun 22 15:45:36 2020
- OS/Arch:           linux/amd64
- Experimental:      false
-Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
-#
+$ sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io
 ```
-버전에 문제가 있음. 공식 문서의 명령어를 썼지만 안 됨.
+
+설치하려는 버전인 19.03.11의 `VERSION_STRING`은 `5:19.03.11~3-0~ubuntu-bionic`이고, `containerd.io` 버전은 `1.2.13-2`입니다. 그러므로 실행할 명령어는
+
+```bash
+$ apt-get install docker-ce=5:19.03.11~3-0~ubuntu-bionic docker-ce-cli=5:19.03.11~3-0~ubuntu-bionic containerd.io=1.2.13-2
+```
+
+입니다.
+
+버전을 확인합니다. Docker와 containerd 모두 원하는 버전이 설치되었습니다
+
+```bash
+$ sudo docker version
+Client: Docker Engine - Community
+ Version:           19.03.11
+  ...
+Server: Docker Engine - Community
+ Engine:
+  Version:          19.03.11
+  ...
+containerd:
+  Version:          1.2.13
+  ...
+$
+```
+
+## 부록: `VERSION_STRING` 정보 확인하기
+
+다른 버전에 대한 `VERSION_STRING` 정보는 다음 명령어로 가능합니다. 두 번째 열이  `VERSION_STRING` 정보입니다.
 
 ```bash
 # apt-cache madison docker-ce
@@ -196,11 +298,8 @@ Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docke
  docker-ce | 18.03.1~ce~3-0~ubuntu | https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
 #
 ```
-b. Install a specific version using the version string from the second column, for example, 5:18.09.1~3-0~ubuntu-xenial.
 
-$ sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io
-
-Version 19.03.11 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 
+쿠버네티스에서 호환 확인된 버전인 19.03.11와 1.13.1, 17.03, 17.06, 17.09, 18.06, 18.09 에 해당하는 것은가 있습니다. 19.03.11, 18.09, 18.06 만 보여지고 1.13.1, 17.03, 17.06, 17.09는 없네요.
 
 docker-ce | 5:19.03.11~3-0~ubuntu-bionic | https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
   ...
@@ -218,122 +317,3 @@ docker-ce | 18.06.3~ce~3-0~ubuntu | https://download.docker.com/linux/ubuntu bio
 docker-ce | 18.06.2~ce~3-0~ubuntu | https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
 docker-ce | 18.06.1~ce~3-0~ubuntu | https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
 docker-ce | 18.06.0~ce~3-0~ubuntu | https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
-
-19.03.11, 18.09, 18.06 만 보여지고 1.13.1, 17.03, 17.06, 17.09는 없음.
-
-<VERSION_STRING> = 5:19.03.11~3-0~ubuntu-bionic
-```bash
-$ sudo apt-get install docker-ce=5:19.03.11~3-0~ubuntu-bionic docker-ce-cli=5:19.03.11~3-0~ubuntu-bionic containerd.io
-```
-
-```bash
-$ apt-get install docker-ce=5:19.03.11~3-0~ubuntu-bionic docker-ce-cli=5:19.03.11~3-0~ubuntu-bionic containerd.io
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-containerd.io is already the newest version (1.2.13-2).
-The following additional packages will be installed:
-  aufs-tools cgroupfs-mount pigz
-The following NEW packages will be installed:
-  aufs-tools cgroupfs-mount docker-ce pigz
-The following packages will be DOWNGRADED:
-  docker-ce-cli
-0 upgraded, 4 newly installed, 1 downgraded, 0 to remove and 80 not upgraded.
-Need to get 63.9 MB of archives.
-After this operation, 107 MB of additional disk space will be used.
-Do you want to continue? [Y/n] 
-  ...
-$
-```
-```bash
-# docker version
-Client: Docker Engine - Community
- Version:           19.03.11
- API version:       1.40
- Go version:        go1.13.10
- Git commit:        42e35e61f3
- Built:             Mon Jun  1 09:12:22 2020
- OS/Arch:           linux/amd64
- Experimental:      false
-
-Server: Docker Engine - Community
- Engine:
-  Version:          19.03.11
-  API version:      1.40 (minimum version 1.12)
-  Go version:       go1.13.10
-  Git commit:       42e35e61f3
-  Built:            Mon Jun  1 09:10:54 2020
-  OS/Arch:          linux/amd64
-  Experimental:     false
- containerd:
-  Version:          1.2.13
-  GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429
- runc:
-  Version:          1.0.0-rc10
-  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
- docker-init:
-  Version:          0.18.0
-  GitCommit:        fec3683
-#
-```
-맞는 버전이 설치 됨.
-
-# lsb_release -cs
-bionic
-
-apt-get install docker-ce=5:19.03.11~3-0~ubuntu-bionic docker-ce-cli=5:19.03.11~3-0~ubuntu-bionic containerd.io
-
-Uninstall
-```bash
-$ sudo apt-get purge docker-ce docker-ce-cli containerd.io
-$ sudo rm -rf /var/lib/docker
-```
-제거 확인
-```bash
-$ docker version
--bash: /usr/bin/docker: No such file or directory
-$
-```
-```bash
-$ apt-get install docker-ce=5:19.03.11~3-0~ubuntu-bionic docker-ce-cli=5:19.03.11~3-0~ubuntu-bionic containerd.io=1.2.13-2
-```
-버전을 확인합니다.
-```bash
-$ docker version
-Client: Docker Engine - Community
- Version:           19.03.11
-  ...
-Server: Docker Engine - Community
- Engine:
-  Version:          19.03.11
-  ...
-containerd:
-  Version:          1.2.13
-  ...
-$
-```
-모두 원하는 버전이 설치되었습니다
-
-노드 테스트는 여전히 실패가 뜹니다.
-Google search: kubernetes Node Conformance Test system validation failed: unsupported docker version: 19.03.11
-
-[Node conformance test NodeProblemDetector failed against all docker ce and ee versions from 17.06.--19.03](https://github.com/kubernetes/kubernetes/issues/78186)
-
- 이 글을 보면 모든 Docker 버전에 대해 테스트 했지만 실패했다고 되어 있습니다.
-
- 검색 결과가 몇 개 나오지 않아서 검색 범위를 넖혀 봅니다.
- Google search: kubernetes Node Conformance Test system validation failed: unsupported docker version: 19.03.11
-
- 유용한 정보는 찾을 수 없습니다.
-
-버전을 맞춘 후에 남은 에러를 제거하기 위해 구글링했지만, 공식 문서에 나오는 명령어를 쓰면 안 된다는 "신호"를 많이 봤습니다. 결정적으로
-
-> Google search: validate kubernetes Node Conformance Test
->
-> Couple of thing I can suggest you to run Conformance Test:
-> 1) Forget about https://kubernetes.io/docs/setup/node-conformance/
-> 2) Install [kubetest](https://github.com/kubernetes/test-infra/tree/master/kubetest) and follow [Conformance Testing in Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/devel/conformance-tests.md) instruction
-> 3) Use [sonobuoy](https://github.com/heptio/sonobuoy) solution from Heptio. More information you can find here: [Conformance Testing - 1.11+](https://github.com/heptio/sonobuoy/blob/master/docs/conformance-testing.md)
-> Good Luck!
->
-> 출처: [Kubernetes Node Conformance Test](https://stackoverflow.com/questions/54129836/kubernetes-node-conformance-test)

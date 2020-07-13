@@ -322,9 +322,8 @@ $
 
 ## 다음
 
-* [쿠버네티스 대쉬보드 (Kubernetes Dashboard) 설치하기](deploy_k8s_dashboard.md)
+* [클러스터에 붙은 노드 구성 검증하기](validate_node_setup.md)
 * [kubeadm init args로  단일 구성 클러스터 생성하기](create_a_single_control_plane_cluster_with_kubeadm_init_args.md)
-
 * [부록: `kubeadm init` 명령어](appendix-create_a_single_control_plane_cluster_with_kubeadm_init.md)
   * `kubeadm init` 명령어 실행 시 연관있는 항목
   * `sudo kubeadm init`명령어의 전체 메세지
