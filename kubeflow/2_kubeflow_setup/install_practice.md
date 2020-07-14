@@ -151,3 +151,68 @@ Please, check the contents of the $HOME/.kube/config file.
 #
 ```
 
+## 계정 리셋하기
+
+### 마스터용 컴퓨터
+
+Fresh start를 위해서 계정을 리셋하겠습니다. 삭제 전에 필요한 데이터를 백업합니다.
+
+참고: [How to Add and Delete Users on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-ubuntu-16-04) > How To Delete a User
+
+#### 기존 k8smaster 계정 삭제
+
+##### Step 1. 루트 계정으로 변환합니다.
+
+```bash
+$ sudo -i
+[sudo] password for aimldl: 
+#
+```
+
+##### Step 2. `deluser`명령어로 계정을 삭제합니다.
+
+```bash
+# deluser k8smaster
+Removing user `k8smaster' ...
+Warning: group `k8smaster' has no more members.
+Done.
+#
+```
+
+##### Step 3. 사용자의 홈 디렉토리를 삭제합니다.
+
+계정의 이름이 `k8smaster`이므로 `/home/k8smaster` 디렉토리가 남아있습니다. 이 디렉토리를 수동으로 삭제합니다. 이때 `rm -rf *` 명령어는 디렉토리 밑의 모든 파일을 강제로 삭제하므로 사용 시 각별한 주의가 필요합니다. 실행 전에 원하는 디렉토리가 맞는지 재확인하세요.
+
+```bash
+# cd home/
+# ls
+aimldl  git  k8smaster
+# cd k8smaster/
+# ls
+Desktop    Music     Templates         github     temp4zoom
+Documents  Pictures  Videos            snap
+Downloads  Public    examples.desktop  temp-soho
+# rm -rf *
+# ls -al
+total 108
+drwxr-xr-x 15 1002 1002 4096  7월 14 11:11 .
+drwxr-xr-x  5 root root 4096  6월 30 17:46 ..
+-rw-------  1 1002 1002  720  7월 10 09:29 .ICEauthority
+-rw-------  1 1002 1002  122  7월 13 18:05 .Xauthority
+  ...
+-rw-------  1 1002 1002 3744  6월 30 18:01 .xsession-errors.old
+# rm -rf .*
+rm: refusing to remove '.' or '..' directory: skipping '.'
+rm: refusing to remove '.' or '..' directory: skipping '..'
+# ls -al
+total 8
+drwxr-xr-x 2 1002 1002 4096  7월 14 11:11 .
+drwxr-xr-x 5 root root 4096  6월 30 17:46 ..
+# cd ..
+# rmdir k8smaster/
+# ls
+aimldl  git
+#
+```
+
+#### 신규 k8smaster 계정 생성
