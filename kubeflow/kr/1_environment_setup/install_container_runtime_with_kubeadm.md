@@ -83,4 +83,4 @@ $
 
 ## 다음
 
-* [kubeadm, kubelet, kubectl 설치하기](install_kubeadm_kubelet_kubectl.md)
+* [배포 툴을 이용해서 쿠버네티스 설치하기](install_k8s_with_deployment_tools.md)

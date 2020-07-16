@@ -1,3 +1,4 @@
+* Rev.1: 2020-07-15 (Wed)
 * Draft: 2020-07-01 (Wed)
 
 # kubeadm 을 이용한 쿠버네티스 설치
@@ -36,12 +37,6 @@ kubeadm은 Bootstrapping 만 신경쓰고, 프로비져닝은 신경쓰지 않�
   * [kubeadm로 컨트롤 플레인 사용자 정의하기](https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/control-plane-flags/) / [Customizing control plane configuration with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
   * kubeadm로 클러스터의 각 kubelet 설정하기 / [Configuring each kubelet in your cluster using kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/kubelet-integration/)
 
-## kubeadm 설치하기
+## 다음
 
-아래는  [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)에서 해당하는 내용입니다.
-
-[kubeadm 설치 전 사전 확인 작업](verify_before_installing_k8s.md)
-
-[kubeadm 설치하기](install_kubeadm.md)
-
-##### [턴키 클라우드 솔루션](https://kubernetes.io/ko/docs/setup/production-environment/turnkey/)
+* [kubeadm, kubelet, kubectl 설치하기](install_kubeadm_kubelet_kubectl.md)

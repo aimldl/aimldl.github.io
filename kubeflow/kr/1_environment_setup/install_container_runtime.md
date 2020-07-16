@@ -19,8 +19,6 @@
 
 ## 1. Docker 설치하기
 
-여기까지는 앞에 sudo 를 붙이는 경우도 설명을 합니다만, 앞으로는 root계정으로 명령어를 실행할 것을 권장합니다. 앞으로는 root계정으로 로그인한 것을 가정합니다.
-
 ### 1.1. root 계정으로 명령어를 실행할 경우
 
 ```bash
@@ -175,4 +173,4 @@ $
 
 ## 다음
 
-* [배포 툴을 이용해서 쿠버네티스 설치하기](install_k8s_with_deployment_tools.md)
+* [컨테이너 런타임 설치하기: kubeadm편](install_container_runtime_with_kubeadm.md)

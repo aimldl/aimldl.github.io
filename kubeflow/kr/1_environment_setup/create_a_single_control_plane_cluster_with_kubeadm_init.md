@@ -47,13 +47,13 @@ $ sudo nano /etc/fstab
 #####  수정 전
 
 ```bash
-/swapfile                                 none            swap    sw              0       0
+/swapfile   none   swap   sw   0   0
 ```
 
 ##### 수정 후
 
 ```bash
-#/swapfile                                 none            swap    sw              0       0
+#/swapfile   none   swap   sw   0   0
 ```
 
 ## 마스터 설정: `kubeadm init`의 기본값으로 초기화 하기
@@ -323,7 +323,6 @@ $
 ## 다음
 
 * [클러스터에 붙은 노드 구성 검증하기](validate_node_setup.md)
-* [kubeadm init args로  단일 구성 클러스터 생성하기](create_a_single_control_plane_cluster_with_kubeadm_init_args.md)
 * [부록: `kubeadm init` 명령어](appendix-create_a_single_control_plane_cluster_with_kubeadm_init.md)
   * `kubeadm init` 명령어 실행 시 연관있는 항목
   * `sudo kubeadm init`명령어의 전체 메세지

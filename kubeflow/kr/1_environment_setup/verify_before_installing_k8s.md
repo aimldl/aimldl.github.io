@@ -1,7 +1,10 @@
+* Rev.2: 2020-07-15 (Wed)
 * Rev.1: 2020-07-02 (Thu)
 * Draft: 2020-07-01 (Wed)
 
-# kubeadm 설치 전 사전 확인 작업
+# 쿠버네티스 설치 전 확인 작업
+
+아래는  [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)에서 해당하는 내용입니다.
 
 ## OS 설치
 
@@ -219,50 +222,8 @@ Ubuntu 18.04 LTS버전임에도 `/etc/fstab`에서 `/swapfile`이 있는 줄의 
 
 ## 5. 노드 간의 네트워크 연결 확인
 
-네트워크 연결은 (완벽하게 잘 연결되었는지 확인할 수는 없지만) ping 테스트로 확인한다.
-
-### 마스터 노드
-
-```bash
-$ ifconfig | grep inet
-  ...
-        inet 192.168.0.109  netmask 255.255.255.0  broadcast 192.168.0.255
-  ...
-$
-```
-
-## 워커 노드
-
-```bash
-
-```
-
-
-
-### 마스터 -> 워커 01 호출
-
-```bash
-$ ping 192.168.0.118
-PING 192.168.0.118 (192.168.0.118) 56(84) bytes of data.
-64 bytes from 192.168.0.118: icmp_seq=1 ttl=64 time=39.5 ms
-64 bytes from 192.168.0.118: icmp_seq=2 ttl=64 time=293 ms
-64 bytes from 192.168.0.118: icmp_seq=3 ttl=64 time=211 ms
-64 bytes from 192.168.0.118: icmp_seq=4 ttl=64 time=115 ms
-^C
---- 192.168.0.118 ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3005ms
-rtt min/avg/max/mdev = 39.562/165.157/293.682/96.101 ms
-$
-```
-
-### 워커01 --> 마스터 호출
-
-```bash
-$ ping 
-```
-
-
+네트워크 연결은 (완벽하게 잘 연결되었는지 확인할 수는 없지만) ping 테스트로 확인할 수 있습니다. 클러스터에 들어올 각 컴퓨터에서 인터넷 접속이 접속이 되면, 일반적으로 문제가 없으므로 이 과정은 생략할 수 있습니다.
 
 ## 다음
 
-[컨테이너 런타임 설치하기: kubeadm편](install_container_runtime_with_kubeadm.md)
+* [컨테이너 런타임 (Container Runtime) 설치하기](install_container_runtime.md)

@@ -1,7 +1,11 @@
 * 2020-07-09 (Thu)
 # 클러스터에 붙은 노드 구성 검증하기
 
+## 개요
 
+노드 적합성 테스트는 그냥 넘어가기로 합니다.
+
+## 상세 내용
 
 > Google search: validate kubernetes Node Conformance Test
 >
