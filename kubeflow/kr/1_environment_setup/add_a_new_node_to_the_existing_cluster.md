@@ -331,4 +331,4 @@ $
 <img src="images/kubernetes-dashboard-cluster_nodes-atc_kevin-not_ready.png">
 
 ## Next
-* [Matching the versions of Docker-Kubernetes-Kubeflow Chain](maching_the_versions_of_docker-kubernetes-kubeflow_chain.md)
+* [Match the versions of Docker-Kubernetes-Kubeflow Chain](maching_the_versions_of_docker-kubernetes-kubeflow_chain.md)
