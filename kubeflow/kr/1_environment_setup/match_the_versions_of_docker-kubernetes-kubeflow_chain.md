@@ -24,4 +24,8 @@ and so on...
 
 Go to the link and find "dockver version"
 
-For example, [v1.18 Release Notes v1.18.0](https://kubernetes.io/docs/setup/release/notes/)
+For example, [kubernetes/CHANGELOG/CHANGELOG-1.14.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.14.md) > [External Dependencies](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.14.md#external-dependencies)
+find the following line with "docker version".
+
+> The list of validated docker versions has changed. 1.11.1 and 1.12.1 have been removed.
+> The current list is 1.13.1, 17.03, 17.06, 17.09, 18.06, 18.09. (#72823, #72831)
