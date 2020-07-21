@@ -35,3 +35,9 @@ Find the following line with "docker version".
 Find the following line with "docker version":
 > * The list of validated docker versions remains unchanged.
 >   * The current list is 1.13.1, 17.03, 17.06, 17.09, 18.06, 18.09. (#72823, #72831)
+
+
+--kubernetes-version string     Default: "stable-1"
+  Choose a specific Kubernetes version for the control plane.
+  
+[kubeadm init](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/)
