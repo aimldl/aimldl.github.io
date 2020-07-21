@@ -1,6 +1,6 @@
 * Draft: 2020-07-21 (Tue)
 
-# Matching the versions of Docker-Kubernetes-Kubeflow Chain
+# Match the versions of Docker-Kubernetes-Kubeflow Chain
 
 Google search: docker versions compatible with kubernetes
 
