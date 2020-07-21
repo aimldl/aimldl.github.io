@@ -120,7 +120,7 @@ $ kubeadm join <control-plane-host>:<control-plane-port> --token <token> --disco
 * [쿠버네티스 대쉬보드 (Kubernetes Dashboard) 설치하기](1_environment_setup/deploy_k8s_dashboard.md)
 * [클러스터에 신규 노드 조인 (Join)하기](1_environment_setup/add_a_new_node_to_the_existing_cluster.md)
 
-* [Match the versions of Docker-Kubernetes-Kubeflow Chain](match_the_versions_of_docker-kubernetes-kubeflow_chain.md)
+* [Match the versions of Docker-Kubernetes-Kubeflow Chain](1_environment_setup/match_the_versions_of_docker-kubernetes-kubeflow_chain.md)
 
 Kubeflow 1.0
 k8s      1.14
