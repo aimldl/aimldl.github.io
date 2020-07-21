@@ -1,14 +1,30 @@
+* Rev.1: 2020-07-21 (Tue)
 * Draft: 2020-07-07 (Tue)
 
 # 클러스터에 신규 노드 조인 (Join)하기
-
 기존에 생성된 클러스터에 노드를 새로 조인 (Join) 해봅니다.
+
+## Executive Summary
+### 1. Install the common parts
+```bash
+install_common_parts() {  # used both for master and worker ndoes
+  printf "\nInstalling the common parts...\n"
+  deactivate_swap_memory
+  safe_install_docker
+  install_kubeadm_kubelet_kubectl
+}
+```
+### 2. Join a workder node to the Kubernetec Cluster
+```bash
+$ sudo kubeadm join 123.456.7.890:6443 --token 511z8u.52isecvhqz3zut7b \
+    --discovery-token-ca-cert-hash sha256:2b1881f6ce22a61bca221b5482421b41b268eb08d43a7667bcf81696bd90d50b 
+```
 
 ## 신규 계정 만들기
 
 쿠버네티스 전용으로 사용할 계정과 패스워드를 생성합니다. 
 
- Step 1. 새로운 컴퓨터의 기존 계정에 로그인합니다.
+Step 1. 새로운 컴퓨터의 기존 계정에 로그인합니다.
 
 Step 2. 터미널을 열고, `adduser` 명령어에 신규 계정의 이름을 입력합니다. 
 
@@ -58,16 +74,9 @@ $ sudo nano /etc/fstab
 #/swapfile                                 none            swap    sw              0       0
 ```
 
-## 
+## 컨테이너 런타임 (Container Runtime) 설치하기
 
-
-
-
-
-컨테이너 런타임 (Container Runtime) 설치하기
-
-
-## 1. Docker 설치 여부 확인하기
+### 1. Docker 설치 여부 확인하기
 
 $ hostname
 k8snode-01-gpu-desktop
@@ -92,7 +101,7 @@ $
 
 워커 노드 역시 Docker뿐만 아니라 containerd도 같이 있음을 알 수 있습니다.
 
-## 2. Docker 설치하기
+### 2. Docker 설치하기
 
 여기까지는 앞에 sudo 를 붙이는 경우도 설명을 합니다만, 앞으로는 root계정으로 명령어를 실행할 것을 권장합니다. 앞으로는 root계정으로 로그인한 것을 가정합니다.
 
@@ -100,6 +109,7 @@ $
 
 `sudo -i` 혹은 `sudo -s` 명령어로 `root` 계정으로 로그인할 수 있습니다.
 
+```bash
 $ sudo -i
 [sudo] password for k8smaster: 
 $
@@ -127,12 +137,14 @@ EOF
 # mkdir -p /etc/systemd/system/docker.service.d
 # systemctl daemon-reload
 # systemctl restart docker
+```
 
 부팅 후 Docker 서비스를 시작하려면
+```bash
 # systemctl enable docker
+```
 
-
-## kubeadm, kubelet, kubectl 설치하기
+### kubeadm, kubelet, kubectl 설치하기
 
 모든 컴퓨터에 kubeadm, kubelet, kubectl를 설치합니다. 
 
@@ -285,7 +297,7 @@ $ sudo kubeadm join 192.168.0.109:6443 --token zqw1lb.tuhllf8m7zntibcq \
 ```
 
 출력 메세지는
-
+```bash
 [sudo] password for k8snode: 
 W0703 19:13:46.603764   24337 join.go:346] [preflight] WARNING: JoinControlPane.controlPlane settings will be ignored when control-plane flag is not set.
 [preflight] Running pre-flight checks
@@ -303,10 +315,9 @@ This node has joined the cluster:
 
 Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 $
+```
 
 이 노드가 클러스터에 조인 (join) 했고, 확인하려면 컨트롤 플레인 (the control-plane), 즉 마스터에서 `kubectl get nodes`명령어를 실행하라는 메세지가 출력됐습니다. 이렇게 해서 단일 구성 클러스터의 생성을 완료했습니다. 
-
-
 
 ```bash
 $ sudo kubectl get nodes
