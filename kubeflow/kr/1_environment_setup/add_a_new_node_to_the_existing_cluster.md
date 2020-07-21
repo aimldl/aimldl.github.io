@@ -162,7 +162,7 @@ $ sudo apt-mark hold kubelet kubeadm kubectl
 The kubelet is now restarting every few seconds, as it waits in a crashloop for kubeadm to tell it what to do.
 
 워커 노드
-
+```bash
 $ sudo apt-get update && sudo apt-get install -y apt-transport-https curl
   ...
 curl is already the newest version (7.58.0-2ubuntu3.9).
@@ -192,8 +192,7 @@ $ cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 > kubeadm set on hold.
 > kubectl set on hold.
 > $
-
-
+```
 
 ## 설정값 확인
 
