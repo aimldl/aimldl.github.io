@@ -1,3 +1,4 @@
+* Rev.3: 2020-07-24 (Fri)
 * Rev.2: 2020-07-09 (Thu)
 * Rev.1: 2020-07-08 (Wed)
 * Draft: 2020-07-07 (Tue)
@@ -109,22 +110,42 @@ $
 ### Step 1. 마스터에서 기존 토큰 값을 확인합니다.
 
 ```bash
-$ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token
-Name:         namespace-controller-token-g85r7
-Type:  kubernetes.io/service-account-token
-token:      a ... z
+$ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep ^token | sed -e 's/^token:[ ]*//'
+a1b ... y9z
 $
 ```
 
-위의 예에서  `a ... z`로 표기된 token값을 복사합니다.
+`a1b ... y9z`로 표기된 것이 토큰 값입니다. 
 
-참고로 `$( ... )` 안의 명령어는 다음 스트링을 리턴합니다.
+참고: 위의 명령어는 쿠버네티스 공식 홈페이지에 있는 아래 명령어를 수정한 것입니다.
+
+```bash
+$ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token
+Name:         namespace-controller-token-g85r7
+Type:  kubernetes.io/service-account-token
+token:      a1b ... y9z
+$
+```
+
+`$( ... )` 안의 명령어는 다음 스트링을 리턴합니다.
 
 ```bash
 $ kubectl -n kube-system get secret -n kube-system -o name | grep namespace
 secret/namespace-controller-token-g85r7
 $
 ```
+
+ 토큰 외의 다른 정보가 포함되어 있으므로, 명령어를 수정해서 다른 정보를 제거합니다. 우선 
+
+`grep token`을 `grep ^token`으로 변경하면 "token:"으로 시작되는 행만 남습니다.
+
+```bash
+$ kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep ^token
+token:      a1b ... y9z
+$
+```
+
+`sed`명령어로 `token:`으로 시작하고 스페이스가 이어지는 부분을 제거합니다. 정규표현식으로 `^token:[ ]*에 매칭되는 부분은 a의 앞부분까지인 "token:      "입니다.
 
 ### Step 2. `kubectl proxy` 명령어로 대쉬보드를 실행합니다.
 
