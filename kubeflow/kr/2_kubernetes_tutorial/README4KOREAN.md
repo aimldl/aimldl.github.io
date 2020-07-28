@@ -28,6 +28,17 @@
     * [PKI 인증서 및 요구 조건](https://kubernetes.io/ko/docs/setup/best-practices/certificates/)
 * [문서 / 개념](https://kubernetes.io/ko/docs/concepts/)
 * [문서 / 태스크](https://kubernetes.io/ko/docs/tasks/)
+  * [도구 설치](https://kubernetes.io/ko/docs/tasks/tools/)
+
+컴퓨터에서 쿠버네티스 도구를 설정한다.
+
+    * [kubectl 설치 및 설정](https://kubernetes.io/ko/docs/tasks/tools/install-kubectl/)
+    * [Minikube 설치](https://kubernetes.io/ko/docs/tasks/tools/install-minikube/)
+
+  * [클러스터 운영]()
+
+클러스터를 운영하기 위한 공통 태스크를 배운다.
+
 [문서 / 태스크 / 클러스터 운영](https://kubernetes.io/ko/docs/tasks/administer-cluster/)
 클러스터를 운영하기 위한 공통 태스크를 배운다.
   * [kubeadm으로 관리하기](https://kubernetes.io/ko/docs/tasks/administer-cluster/kubeadm/)
@@ -68,6 +79,57 @@
   * [클러스터에서 실행되는 서비스에 접근]
 
   * [퍼시스턴트볼륨 반환 정책 변경하기]
+
+
+
+  * [파드와 컨테이너 설정]()
+
+파드와 컨테이너에 대한 공통 구성 태스크들을 수행한다.
+
+  * [쿠버네티스 오브젝트 관리]()
+
+쿠버네티스 API와 상호 작용하기 위한 선언적이고 명령적인 패러다임
+
+  * [애플리케이션에 데이터 주입하기]()
+
+워크로드를 실행하는 파드에 대한 구성과 기타 데이터를 지정한다.
+
+  * [애플리케이션 실행]()
+
+스테이트리스와 스테이트풀 애플리케이션 모두를 실행하고 관리한다.
+
+  * [클러스터 내 어플리케이션 액세스]()
+
+클러스터의 애플리케이션에 접근하기 위해 로드 밸런싱, 포트 포워딩, 방화벽 설정 또는 DNS 구성을 설정한다.
+
+  * [모니터링, 로깅, 그리고 디버깅]()
+
+모니터링 및 로깅을 설정하여 클러스터 문제를 해결하거나, 컨테이너화된 애플리케이션을 디버깅한다.
+
+  * [TLS]()
+
+TLS(Transport Layer Security)를 사용하여 클러스터 내 트래픽을 보호하는 방법을 이해한다.
+
+  * [클러스터 데몬 관리]()
+
+롤링 업데이트 수행과 같은 데몬셋 관리를 위한 일반적인 작업을 수행한다.
+
+  * [네트워킹]()
+
+클러스터에 대한 네트워킹 설정 방법에 대해 배운다.
+
+  * [GPU 스케줄링]()
+
+클러스터의 노드별로 리소스로 사용할 GPU를 구성하고 스케줄링한다.
+
+  * [HugePages 관리]()
+
+클러스터에서 huge page를 스케줄할 수 있는 리소스로 구성하고 관리한다.
+
+  * [플러그인으로 kubectl 확장]()
+
+kubectl 플러그인을 작성하고 설치해서 kubectl을 확장한다.
+
 
 * [문서 / 튜토리얼](https://kubernetes.io/ko/docs/tutorials/)
 * [문서 / 레퍼런스](https://kubernetes.io/ko/docs/reference/)
