@@ -1,6 +1,8 @@
 * Draft: 2020-07-28 (Tue)
 
 # [한국어 쿠버네티스 문서](https://kubernetes.io/ko/docs/home/) (Kubernetes Tutorial in Korean)
+문서의 펼친 목차를 제공. 아직 미완성임.
+
 ##  펼친 목차 (Unfolded Table of Contents)
 ### [문서 / 시작하기](https://kubernetes.io/ko/docs/setup/)
 * [릴리스 노트와 버전 차이 지원(skew)](https://kubernetes.io/ko/docs/setup/release/)
@@ -82,13 +84,19 @@
   * [HostAliases로 파드의 /etc/hosts 항목 추가하기](https://kubernetes.io/ko/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/)
   * [IPv4/IPv6 이중 스택](https://kubernetes.io/ko/docs/concepts/services-networking/dual-stack/)
 * [스토리지](https://kubernetes.io/ko/docs/concepts/storage/) 클러스터의 파드에 장기(long-term) 및 임시 스토리지를 모두 제공하는 방법
+TODO: 하위 메뉴를 생성하고, 각 메뉴의 내용을 빠르게 스캔한다.
 * [구성](https://kubernetes.io/ko/docs/concepts/configuration/) 쿠버네티스가 파드 구성을 위해 제공하는 리소스
+TODO: 하위 메뉴를 생성하고, 각 메뉴의 내용을 빠르게 스캔한다.
 * [보안](https://kubernetes.io/ko/docs/concepts/security/) 클라우드 네이티브 워크로드를 안전하게 유지하기 위한 개념
   * [클라우드 네이티브 보안 개요](https://kubernetes.io/ko/docs/concepts/security/overview/)
 * [스케줄링과 축출(eviction)](https://kubernetes.io/ko/docs/concepts/scheduling-eviction/) 쿠버네티스에서, 스케줄링은 kubelet이 파드를 실행할 수 있도록 파드가 노드와 일치하는지 확인하는 것을 말한다. 축출은 리소스가 부족한 노드에서 하나 이상의 파드를 사전에 장애로 처리하는 프로세스이다.
+TODO: 하위 메뉴를 생성하고, 각 메뉴의 내용을 빠르게 스캔한다.
 * [정책](https://kubernetes.io/ko/docs/concepts/policy/) 리소스의 그룹에 적용되도록 구성할 수 있는 정책
+TODO: 하위 메뉴를 생성하고, 각 메뉴의 내용을 빠르게 스캔한다.
 * [클러스터 관리](https://kubernetes.io/ko/docs/concepts/cluster-administration/) 쿠버네티스 클러스터 생성 또는 관리에 관련된 로우-레벨(lower-level)의 세부 정보를 설명한다.
+TODO: 하위 메뉴를 생성하고, 각 메뉴의 내용을 빠르게 스캔한다.
 * [쿠버네티스 확장](https://kubernetes.io/ko/docs/concepts/extend-kubernetes/) 쿠버네티스 클러스터의 동작을 변경하는 다양한 방법
+TODO: 하위 메뉴를 생성하고, 각 메뉴의 내용을 빠르게 스캔한다.
 
 ### [문서 / 태스크](https://kubernetes.io/ko/docs/tasks/)
 * [도구 설치](https://kubernetes.io/ko/docs/tasks/tools/) 컴퓨터에서 쿠버네티스 도구를 설정한다.
@@ -170,6 +178,7 @@
 * [플러그인으로 kubectl 확장](https://kubernetes.io/ko/docs/tasks/extend-kubectl/kubectl-plugins/) kubectl 플러그인을 작성하고 설치해서 kubectl을 확장한다.
 
 ### [문서 / 튜토리얼](https://kubernetes.io/ko/docs/tutorials/)
+TODO: 하위 메뉴를 생성하고, 각 메뉴의 내용을 빠르게 스캔한다.
     * [
     * [
     * [
