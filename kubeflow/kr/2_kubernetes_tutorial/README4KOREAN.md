@@ -83,15 +83,61 @@
     * [Horizontal Pod Autoscaler](https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/)
     * [Horizontal Pod Autoscaler 연습](https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
   * [클러스터 내 어플리케이션 액세스](https://kubernetes.io/ko/docs/tasks/access-application-cluster/) 클러스터의 애플리케이션에 접근하기 위해 로드 밸런싱, 포트 포워딩, 방화벽 설정 또는 DNS 구성을 설정한다
+    * [웹 UI (대시보드)](https://kubernetes.io/ko/docs/tasks/access-application-cluster/web-ui-dashboard/)
+    * [클러스터 액세스](https://kubernetes.io/ko/docs/tasks/access-application-cluster/access-cluster/)
+    * [다중 클러스터 접근 구성](https://kubernetes.io/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+    * [포트 포워딩을 사용해서 클러스터 내 애플리케이션에 접근하기](https://kubernetes.io/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+    * [공유 볼륨을 이용하여 동일한 파드의 컨테이너 간에 통신하기](https://kubernetes.io/ko/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/)
+    * [클러스터의 DNS 구성하기](https://kubernetes.io/ko/docs/tasks/access-application-cluster/configure-dns-cluster/)
   * [모니터링, 로깅, 그리고 디버깅](https://kubernetes.io/ko/docs/tasks/debug-application-cluster/) 모니터링 및 로깅을 설정하여 클러스터 문제를 해결하거나, 컨테이너화된 애플리케이션을 디버깅한다.
+    * [리소스 메트릭 파이프라인](https://kubernetes.io/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/)
+    * [리소스 모니터링 도구](https://kubernetes.io/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+    * [엘라스틱서치(Elasticsearch) 및 키바나(Kibana)를 사용한 로깅](https://kubernetes.io/ko/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)
+    * [초기화 컨테이너(Init Containers) 디버그하기](https://kubernetes.io/ko/docs/tasks/debug-application-cluster/debug-init-containers/)
+    * [파드 실패의 원인 검증하기](https://kubernetes.io/ko/docs/tasks/debug-application-cluster/determine-reason-pod-failure/)
   * [TLS](https://kubernetes.io/ko/docs/tasks/tls/) TLS(Transport Layer Security)를 사용하여 클러스터 내 트래픽을 보호하는 방법을 이해한다.
+    * [Kubelet의 인증서 갱신 구성](https://kubernetes.io/ko/docs/tasks/tls/certificate-rotation/)
   * [클러스터 데몬 관리](https://kubernetes.io/ko/docs/tasks/manage-daemon/) 롤링 업데이트 수행과 같은 데몬셋 관리를 위한 일반적인 작업을 수행한다.
+    * [데몬셋(DaemonSet)에서 롤링 업데이트 수행](https://kubernetes.io/ko/docs/tasks/manage-daemon/update-daemon-set/)
+    * [데몬셋(DaemonSet)에서 롤백 수행](https://kubernetes.io/ko/docs/tasks/manage-daemon/rollback-daemon-set/)
   * [네트워킹](https://kubernetes.io/ko/docs/tasks/network/) 클러스터에 대한 네트워킹 설정 방법에 대해 배운다.
+    * [IPv4/IPv6 이중 스택 검증](https://kubernetes.io/ko/docs/tasks/network/validate-dual-stack/)
   * [GPU 스케줄링](https://kubernetes.io/ko/docs/tasks/manage-gpus/scheduling-gpus/) 클러스터의 노드별로 리소스로 사용할 GPU를 구성하고 스케줄링한다.
   * [HugePages 관리](https://kubernetes.io/ko/docs/tasks/manage-hugepages/scheduling-hugepages/) 클러스터에서 huge page를 스케줄할 수 있는 리소스로 구성하고 관리한다.
   * [플러그인으로 kubectl 확장](https://kubernetes.io/ko/docs/tasks/extend-kubectl/kubectl-plugins/) kubectl 플러그인을 작성하고 설치해서 kubectl을 확장한다.
 * [문서 / 튜토리얼](https://kubernetes.io/ko/docs/tutorials/)
+
+    * [
+    * [
+    * [
+
+
 * [문서 / 레퍼런스](https://kubernetes.io/ko/docs/reference/)
+  * [표준 용어집](https://kubernetes.io/ko/docs/reference/glossary/?fundamental=true)
+  * [쿠버네티스 API 사용하기](https://kubernetes.io/ko/docs/reference/using-api/)
+    * [쿠버네티스 API 개요](https://kubernetes.io/ko/docs/reference/using-api/api-overview/)
+    * [클라이언트 라이브러리](https://kubernetes.io/ko/docs/reference/using-api/client-libraries/)
+  * [쿠버네티스 이슈와 보안](https://kubernetes.io/ko/docs/reference/issues-security/)
+    * [쿠버네티스 이슈 트래커](https://kubernetes.io/ko/docs/reference/issues-security/issues/)
+    * [쿠버네티스 보안과 공개 정보](https://kubernetes.io/ko/docs/reference/issues-security/security/)
+  * [Accessing the API](https://kubernetes.io/docs/reference/access-authn-authz/)
+    * 다수의 영문 문서가 있음
+  * [API Reference](https://kubernetes.io/docs/reference/kubernetes-api/)
+    * [v1.18](https://kubernetes.io/docs/reference/kubernetes-api/api-index/)
+      * [Kubernetes API v1.18](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/)
+    * [Well-Known Labels, Annotations and Taints](https://kubernetes.io/docs/reference/kubernetes-api/labels-annotations-taints/)
+  * [Setup tools reference](https://kubernetes.io/docs/reference/setup-tools/)
+    * [Kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/)
+      * 다수의 영문 문서가 있음    
+  * [kubectl CLI](https://kubernetes.io/ko/docs/reference/kubectl/)
+    * [kubectl 개요](https://kubernetes.io/ko/docs/reference/kubectl/overview/)
+    * [kubectl 치트 시트](https://kubernetes.io/ko/docs/reference/kubectl/cheatsheet/)
+  * [커맨드 라인 도구 레퍼런스](https://kubernetes.io/ko/docs/reference/command-line-tools-reference/)
+    * [기능 게이트](https://kubernetes.io/ko/docs/reference/command-line-tools-reference/feature-gates/)
+  * [Scheduling](https://kubernetes.io/docs/reference/scheduling/)
+    * [Scheduling Policies](https://kubernetes.io/docs/reference/scheduling/policies/)
+    * [Scheduling Profiles](https://kubernetes.io/docs/reference/scheduling/profiles/)
+  * [도구](https://kubernetes.io/ko/docs/reference/tools/) (Kubectl, Kubeadm, Minikube, 대시보드, Helm, Kompose에 관한 링크)
 * [문서 / 쿠버네티스 문서에 기여하기](https://kubernetes.io/ko/docs/contribute/)
 
 ## 읽을 부분
