@@ -1,4 +1,4 @@
-* 
+* Draft: 2020-07-28 (Tue)
 
 # 쿠버네티스 문서 (Kubernetes Tutorial) - 한국어 버전 (in Korean)
 
@@ -10,7 +10,7 @@
     * [Minikube로 쿠버네티스 설치](https://kubernetes.io/ko/docs/setup/learning-environment/minikube/)
   * [운영 환경](https://kubernetes.io/ko/docs/setup/production-environment/)
     * [컨테이너 런타임](https://kubernetes.io/ko/docs/setup/production-environment/container-runtimes/)
-    * [Installing Kubernetes with deployment tools]
+    * [Installing Kubernetes with deployment tools](https://kubernetes.io/ko/docs/setup/production-environment/tools/)
       * [kubeadm으로 클러스터 구성하기](https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/)
         * [kubeadm으로 컨트롤 플레인 사용자 정의하기](https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
         * [고가용성 토폴로지 선택](https://kubernetes.io/ko/docs/setup/production-environment/tools/kubeadm/ha-topology/)
