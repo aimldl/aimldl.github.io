@@ -1,8 +1,8 @@
 * Draft: 2020-07-28 (Tue)
 
-# 쿠버네티스 문서 (Kubernetes Tutorial) - 한국어 버전 (in Korean)
-
-## [쿠버네티스 문서](https://kubernetes.io/ko/docs/home/) 목차
+# [쿠버네티스 문서](https://kubernetes.io/ko/docs/home/) (Kubernetes Tutorial) - 한국어 버전 (in Korean)
+##  목차
+작성일: 2020-07-28 (Tue)
 * [문서 / 시작하기](https://kubernetes.io/ko/docs/setup/)
   * [릴리스 노트와 버전 차이 지원(skew)](https://kubernetes.io/ko/docs/setup/release/)
     * [v1.18 릴리스 노트](https://kubernetes.io/ko/docs/setup/release/notes/)
