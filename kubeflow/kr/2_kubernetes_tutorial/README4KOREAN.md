@@ -61,9 +61,27 @@
     * [클러스터에서 실행되는 서비스에 접근](https://kubernetes.io/ko/docs/tasks/administer-cluster/access-cluster-services/)
     * [퍼시스턴트볼륨 반환 정책 변경하기](https://kubernetes.io/ko/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
   * [파드와 컨테이너 설정](https://kubernetes.io/ko/docs/tasks/configure-pod-container/) 파드와 컨테이너에 대한 공통 구성 태스크들을 수행한다.
+    * [컨테이너 및 파드 메모리 리소스 할당](https://kubernetes.io/ko/docs/tasks/configure-pod-container/assign-memory-resource/)
+    * [파드에 대한 서비스 품질(QoS) 구성](https://kubernetes.io/ko/docs/tasks/configure-pod-container/quality-service-pod/)
+    * [스토리지의 볼륨을 사용하는 파드 구성](https://kubernetes.io/ko/docs/tasks/configure-pod-container/configure-volume-storage/)
+    * [프라이빗 레지스트리에서 이미지 받아오기](https://kubernetes.io/ko/docs/tasks/configure-pod-container/pull-image-private-registry/)
+    * [노드 어피니티를 사용해 노드에 파드 할당](https://kubernetes.io/ko/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)
+    * [노드에 파드 할당](https://kubernetes.io/ko/docs/tasks/configure-pod-container/assign-pods-nodes/)
+    * [초기화 컨테이너에 대한 구성](https://kubernetes.io/ko/docs/tasks/configure-pod-container/configure-pod-initialization/)
+    * [스태틱(static) 파드 생성하기](https://kubernetes.io/ko/docs/tasks/configure-pod-container/static-pod/)
   * [쿠버네티스 오브젝트 관리](https://kubernetes.io/ko/docs/tasks/manage-kubernetes-objects/) 쿠버네티스 API와 상호 작용하기 위한 선언적이고 명령적인 패러다임
+    * [구성 파일을 이용한 쿠버네티스 오브젝트의 선언형 관리](https://kubernetes.io/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
+    * [Kustomize를 이용한 쿠버네티스 오브젝트의 선언형 관리](https://kubernetes.io/ko/docs/tasks/manage-kubernetes-objects/kustomization/)
+    * [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](https://kubernetes.io/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
+    * [구성파일을 이용한 명령형 쿠버네티스 오브젝트 관리](https://kubernetes.io/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
   * [애플리케이션에 데이터 주입하기](https://kubernetes.io/ko/docs/tasks/inject-data-application/) 워크로드를 실행하는 파드에 대한 구성과 기타 데이터를 지정한다.
+    * [컨테이너를 위한 커맨드와 인자 정의하기](https://kubernetes.io/ko/docs/tasks/inject-data-application/define-command-argument-container/)
+    * [컨테이너를 위한 환경 변수 정의하기](https://kubernetes.io/ko/docs/tasks/inject-data-application/define-environment-variable-container/)
   * [애플리케이션 실행](https://kubernetes.io/ko/docs/tasks/run-application/) 스테이트리스와 스테이트풀 애플리케이션 모두를 실행하고 관리한다.
+    * [단일 인스턴스 스테이트풀 애플리케이션 실행하기](https://kubernetes.io/ko/docs/tasks/run-application/run-single-instance-stateful-application/)
+    * [스테이트풀셋(StatefulSet) 삭제하기](https://kubernetes.io/ko/docs/tasks/run-application/delete-stateful-set/)
+    * [Horizontal Pod Autoscaler](https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/)
+    * [Horizontal Pod Autoscaler 연습](https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
   * [클러스터 내 어플리케이션 액세스](https://kubernetes.io/ko/docs/tasks/access-application-cluster/) 클러스터의 애플리케이션에 접근하기 위해 로드 밸런싱, 포트 포워딩, 방화벽 설정 또는 DNS 구성을 설정한다
   * [모니터링, 로깅, 그리고 디버깅](https://kubernetes.io/ko/docs/tasks/debug-application-cluster/) 모니터링 및 로깅을 설정하여 클러스터 문제를 해결하거나, 컨테이너화된 애플리케이션을 디버깅한다.
   * [TLS](https://kubernetes.io/ko/docs/tasks/tls/) TLS(Transport Layer Security)를 사용하여 클러스터 내 트래픽을 보호하는 방법을 이해한다.
