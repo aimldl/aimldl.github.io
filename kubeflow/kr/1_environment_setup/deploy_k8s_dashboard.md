@@ -1,3 +1,4 @@
+* Rev.3: 2020-08-03 (Mon)
 * Rev.3: 2020-07-24 (Fri)
 * Rev.2: 2020-07-09 (Thu)
 * Rev.1: 2020-07-08 (Wed)
@@ -147,6 +148,21 @@ $
 
 `sed`명령어로 `token:`으로 시작하고 스페이스가 이어지는 부분을 제거합니다. 정규표현식으로 `^token:[ ]*에 매칭되는 부분은 a의 앞부분까지인 "token:      "입니다.
 
+참고로 위의 명령어를 두 줄로 표현할 수 있습니다.
+```bash
+$ SECRET_NAME=$(kubectl -n kube-system get secret -n kube-system -o name | grep namespace)
+$ kubectl -n kube-system describe $SECRET_NAME | grep ^token | sed -e 's/^token:[ ]*//'
+```
+혹은 아래 명령어도 동일한 토큰값을 리턴합니다.
+```bash
+$ kubectl describe secret $(kubectl get secrets | grep ^default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d " "
+```
+가독성을 위해 아래처럼 두 줄로 표현할 수도 있습니다.
+```bash
+$ SECRET_NAME=$(kubectl get secrets | grep ^default | cut -f1 -d ' ')
+$ kubectl describe secret $SECRET_NAME | grep -E '^token' | cut -f2 -d':' | tr -d " "
+```
+
 ### Step 2. `kubectl proxy` 명령어로 대쉬보드를 실행합니다.
 
 ```bash
@@ -163,6 +179,16 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 ```
 
 <img src="images/kubernetes-dashboard-web_browser-token.png" align=left>
+
+참고로 Step 2와 3를 `kubectl proxy` 명령어가 아닌 `kubectl port-forward` 명령어로 대체할 수도 있습니다.
+```bash
+$ kubectl port-forward -n kubernetes-dashboard service/kubernetes-dashboard 8080:443
+```
+를 실행하고 웹브라우저에 간단한 링크를 입력해도 됩니다.
+```text
+https://localhost:8080
+```
+`kubectl proxy`와 `kubectl port-forward` 명령어 및 링크는 대쉬보드가 설치된 마스터에서만 사용할 수 있습니다. 보다 자세한 내용은 [Accessing Dashboard](https://github.com/kubernetes/dashboard/blob/master/docs/user/accessing-dashboard/README.md)를 참고하세요.
 
 ### Step 4. 인증 토큰으로 대쉬보드에 접속합니다. 
 
@@ -270,6 +296,8 @@ There is nothing to display here
 ## 참고 문서
 
 * [Kubernetes Dashboard](https://github.com/kubernetes/dashboard), kubernetes/dashboard 공식 github repository
+* [Kubernetes Dashboard Documentation](https://github.com/kubernetes/dashboard/tree/master/docs), kubernetes/dashboard의 문서
+  * [Accessing Dashboard](https://github.com/kubernetes/dashboard/blob/master/docs/user/accessing-dashboard/README.md)
 * [Web UI (Dashboard)](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/), 쿠버네티스 공식 문서
 * [자습서: Kubernetes 웹 UI 배포(대시보드)](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/dashboard-tutorial.html), Amazon EKS 사용 설명서
 
