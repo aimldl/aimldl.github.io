@@ -32,7 +32,7 @@
 * [개요](https://kubernetes.io/ko/docs/concepts/overview/) 쿠버네티스와 그 컴포넌트에 대한 하이-레벨(high-level) 개요를 제공한다.
   * [쿠버네티스란 무엇인가?](https://kubernetes.io/ko/docs/concepts/overview/what-is-kubernetes/)
   * [쿠버네티스 컴포넌트](https://kubernetes.io/ko/docs/concepts/overview/components/)
-  * [쿠버네티스 API](https://kubernetes.io/ko/docs/concepts/overview/kubernetes-api/)
+  * [쿠버네티스 API](https://kubernetes.io/ko/docs/concepts/overview/kubernetes-api/) (Done, [The Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/))
   * [쿠버네티스 오브젝트로 작업하기](https://kubernetes.io/ko/docs/concepts/overview/working-with-objects/)
     * [쿠버네티스 오브젝트 이해하기](https://kubernetes.io/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/)
     * [쿠버네티스 오브젝트 관리](https://kubernetes.io/ko/docs/concepts/overview/working-with-objects/object-management/)
