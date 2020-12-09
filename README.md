@@ -1,8 +1,6 @@
 * Rev.1: 2020-12-09 (Wed)
 * Draft: 2020-05-25 (Mon)
-# README (aimldl.github.io)
-* This repository is my GitHub page at https://aimldl.github.io/
-
+# README https://aimldl.github.io/
 ## Websites for you and your projects
 
 * For details, see https://pages.github.com/
@@ -74,7 +72,7 @@ $ sudo apt install -y ruby
 RubyGems, GCC, and Make are preinstalled with Ubuntu 18.04. To verify, run:
 
 ```bash
-$ gem -v
+$ gem -v  
 $ gcc -v
 $ g++ -v
 $ make -v
@@ -130,6 +128,33 @@ Auto-regeneration: enabled for '/home/aimldl/github/aimldl.github.io/myblog'
     Server address: http://127.0.0.1:4000/
   Server running... press ctrl-c to stop.
 ```
+
+If the following error occurs, run `bundle install` and then run `bundle exec jekyll serve` again.
+
+```bash
+$ bundle exec jekyll serve
+Could not find public_suffix-4.0.6 in any of the sources
+Run `bundle install` to install missing gems.
+$ bundle install
+  ...
+HEADS UP! i18n 1.1 changed fallbacks to exclude default locale.
+But that may break your application.
+
+If you are upgrading your Rails application from an older version of Rails:
+
+Please check your Rails app for 'config.i18n.fallbacks = true'.
+If you're using I18n (>= 1.1.0) and Rails (< 5.2.2), this should be
+'config.i18n.fallbacks = [I18n.default_locale]'.
+If not, fallbacks will be broken in your app by I18n 1.1.x.
+
+If you are starting a NEW Rails application, you can ignore this notice.
+
+For more info see:
+https://github.com/svenfuchs/i18n/releases/tag/v1.1.0
+$
+```
+
+
 
 ##### 6. Browse to http://localhost:4000
 
