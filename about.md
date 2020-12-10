@@ -13,3 +13,5 @@ Principal Research Scientist, KT
 - Data Science: Python, SQL, Pandas, Matplotlib, Seaborn, NLP: NLTK, KoNLPy, text/speech corpus generation
 - English, Korean & Japanese
 
+
+
