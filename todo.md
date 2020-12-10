@@ -1,6 +1,6 @@
 ---
 layout: page
-title: TODO
+title: Todo
 permalink: /todo/
 ---
 
