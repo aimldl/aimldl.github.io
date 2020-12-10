@@ -1,0 +1,52 @@
+I"�<ul>
+  <li>Draft: 2020-12-09 (Wed)</li>
+</ul>
+
+<h1 id="appendix-a-fixing-the-errors-in-install-the-jekyll-and-bundler">Appendix A. Fixing the errors in <code class="language-plaintext highlighter-rouge">Install the jekyll and bundler</code>.</h1>
+
+<h2 id="problem">Problem</h2>
+
+<p>Running the original command in the instructions results in an error.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>jekyll new myblog
+bash: /usr/bin/jekyll: No such file or directory
+<span class="err">$</span>
+</code></pre></div></div>
+
+<p>Without configuring <code class="language-plaintext highlighter-rouge">GEM_HOME</code>, the following error occurs.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gem <span class="nb">install </span>jekyll bundler
+ERROR:  While executing gem ... <span class="o">(</span>Gem::FilePermissionError<span class="o">)</span>
+    You don<span class="s1">'t have write permissions for the /var/lib/gems/2.5.0 directory.
+$
+</span></code></pre></div></div>
+
+<h2 id="hint">Hint</h2>
+
+<p>Google search: “ERROR: While executing gem … (Gem::FilePermissionError) You don’t have write permissions for the /var/lib/gems/2.5.0 directory.”</p>
+
+<h2 id="solution">Solution</h2>
+
+<ul>
+  <li><a href="https://stackoverflow.com/questions/37720892/you-dont-have-write-permissions-for-the-var-lib-gems-2-3-0-directory">You don’t have write permissions for the /var/lib/gems/2.3.0 directory</a></li>
+</ul>
+
+<blockquote>
+  <p>If you want to use the distribution Ruby instead of rb-env/rvm, you can set up a <code class="language-plaintext highlighter-rouge">GEM_HOME</code> for your current user. Start by creating a directory to store the Ruby gems for <em>your</em> user:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir ~/.ruby
+</code></pre></div>  </div>
+
+  <p>Then update your shell to use that directory for <code class="language-plaintext highlighter-rouge">GEM_HOME</code> and to update your <code class="language-plaintext highlighter-rouge">PATH</code> variable to include the Ruby gem bin directory.</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo 'export GEM_HOME=~/.ruby/' &gt;&gt; ~/.bashrc
+$ echo 'export PATH="$PATH:~/.ruby/bin"' &gt;&gt; ~/.bashrc
+$ source ~/.bashrc
+</code></pre></div>  </div>
+
+  <p>(That last line will reload the environment variables in your current shell.)</p>
+
+  <p>Now you should be able to install Ruby gems under your user using the <code class="language-plaintext highlighter-rouge">gem</code> command. I was able to get this working with Ruby 2.5.1 under Ubuntu 18.04. If you are using a shell that is not Bash, then you will need to edit the startup script for that shell instead of <code class="language-plaintext highlighter-rouge">bashrc</code>.</p>
+</blockquote>
+
+:ET

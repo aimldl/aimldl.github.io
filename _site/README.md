@@ -1,7 +1,13 @@
-* Rev.1: 2020-12-09 (Wed)
+* Rev.1: 2020-12-10 (Thu)
 * Draft: 2020-05-25 (Mon)
-# README (aimldl.github.io)
-* This repository is my GitHub page at https://aimldl.github.io/
+# How to create a web site on Github with Jekyll (1)
+## Overview
+
+This is a series of blog posts:
+
+* How to create a web site on Github with Jekyll (1)
+* How to create a web site on Github with Jekyll (2)
+* How to create a web site on Github with Jekyll (3)
 
 ## Websites for you and your projects
 
@@ -74,7 +80,7 @@ $ sudo apt install -y ruby
 RubyGems, GCC, and Make are preinstalled with Ubuntu 18.04. To verify, run:
 
 ```bash
-$ gem -v
+$ gem -v  
 $ gcc -v
 $ g++ -v
 $ make -v
@@ -130,6 +136,33 @@ Auto-regeneration: enabled for '/home/aimldl/github/aimldl.github.io/myblog'
     Server address: http://127.0.0.1:4000/
   Server running... press ctrl-c to stop.
 ```
+
+If the following error occurs, run `bundle install` and then run `bundle exec jekyll serve` again.
+
+```bash
+$ bundle exec jekyll serve
+Could not find public_suffix-4.0.6 in any of the sources
+Run `bundle install` to install missing gems.
+$ bundle install
+  ...
+HEADS UP! i18n 1.1 changed fallbacks to exclude default locale.
+But that may break your application.
+
+If you are upgrading your Rails application from an older version of Rails:
+
+Please check your Rails app for 'config.i18n.fallbacks = true'.
+If you're using I18n (>= 1.1.0) and Rails (< 5.2.2), this should be
+'config.i18n.fallbacks = [I18n.default_locale]'.
+If not, fallbacks will be broken in your app by I18n 1.1.x.
+
+If you are starting a NEW Rails application, you can ignore this notice.
+
+For more info see:
+https://github.com/svenfuchs/i18n/releases/tag/v1.1.0
+$
+```
+
+
 
 ##### 6. Browse to http://localhost:4000
 
@@ -200,13 +233,60 @@ Configuration file: /home/aimldl/github/aimldl.github.io/_config.yml
 
 ## Jekyll
 
-Let's see what the sample website looks like.
+### Sample website
 
-### Sample Website
+Let's see what the sample website looks like. There are pages and posts.
 
-#### https://aimldl.github.io/
+* Examples of pages include:
+  * index.html
+  * _site/about/index.html
+
+* An example of a post is:
+  * Welcome to Jekyll!
+
+#### `index.html`
+
+`index.html` is the first page for a website. In my case, `index.html` is open when I go to https://aimldl.github.io.
 
 <img src='images/jekyll-index_html-default_sample.png'>
+
+#### _site/about/index.html
+
+When I go to https://aimldl.github.io/about/, the page in `_site/about/index.html` is open.
+
+<img src='images/jekyll-about_rendered-default_sample.png'>
+
+##### Welcome to Jekyll!
+
+This post is an example of posts.
+
+<img src='images/jekyll-wecome_to_jekyll_rendered-default_sample.png'>
+
+
+
+### Source files
+
+Source files are in the form of HTML (`.html`) or markdown (`.md` or `.markdown`). Jekyll compiles, builds, or renders markdown files into HTML files. 
+
+`.md`→ `.html`
+
+`.markdown`→ `.html`
+
+The built files are stored under `_site`. The default tree structure is:
+
+```bash
+_site
+├── about
+├── css
+├── images
+├── jekyll
+└── js
+
+```
+
+For details, refer to [Jekyll > DOCS > GETTING STARTED > Step by Step Tutorial > Build](https://jekyllrb.com/docs/step-by-step/01-setup/#build).
+
+### Source files
 
 #### index.html
 
@@ -230,17 +310,11 @@ layout: default
 </div>
 ```
 
-#### https://aimldl.github.io/about/
-
-<img src='images/jekyll-about_rendered-default_sample.png'>
-
-#### about.md
+#### about.md →_site/about/index.html
 
 <img src='images/jekyll-about_md-default_sample.png'>
 
-##### Welcome to Jekyll! https://aimldl.github.io/jekyll/update/2020/12/09/welcome-to-jekyll.html
 
-<img src='images/jekyll-wecome_to_jekyll_rendered-default_sample.png'>
 
 ##### _posts/2020-12-09-welcome-to-jekyll.markdown
 
@@ -258,6 +332,210 @@ https://jekyllrb.com/docs/step-by-step/01-setup/
 6. [Data Files](https://jekyllrb.com/docs/step-by-step/06-data-files/)
 7. [Assets](https://jekyllrb.com/docs/step-by-step/07-assets/)
 8. [Blogging](https://jekyllrb.com/docs/step-by-step/08-blogging/)
-9. [Collections](https://jekyllrb.com/docs/step-by-step/09-collections/)
+9. [CollectionsBuild ](https://jekyllrb.com/docs/step-by-step/09-collections/)
 10. [Deployment](https://jekyllrb.com/docs/step-by-step/10-deployment/)
 
+## Adding pages and posts
+
+Jekyll is designed to help creating a website easily. A website consists of several pages and posts. Steps to create pages and posts are quite easy as long as you are familiar with markdown.
+
+### Steps to create and edit pages and posts
+
+#### Step 1. Write text files in the markdown format.
+
+#### Step 2. Run a local web server.
+
+```bash
+$ bundle exec jekyll server
+```
+
+ Note: The assumption is the `jekyll server` is installed properly.
+
+#### Step 3. Render the markdown files into HTML files and so on.
+
+The following two commands build the site and outputs a static site to directory `_site`.
+
+* `$ jekyll build`
+* `$ jekyll serve`
+
+For details, refer to [Jekyll > DOCS > GETTING STARTED > Step by Step Tutorial > Build](https://jekyllrb.com/docs/step-by-step/01-setup/#build).
+
+#### Step 4. Verify the rendered result at `http://localhost:4000`.
+
+### Example to add a page or a post
+
+The best way to learn how to add a page or post by example. For details, refer to:
+
+*  [Jekyll > DOCS > CONTENT > Pages](https://jekyllrb.com/docs/pages/)
+*  [Jekyll > DOCS > CONTENT > Posts](https://jekyllrb.com/docs/posts/)
+
+#### Adding a page: `Contact`
+
+Step 1. Create a file`contact.md` under the project root directory. 
+
+In my case, the directory is where files like `README.md`, `index.html`, and `about.md` reside.
+
+Step 2. Add the YAML front matter. For example,
+
+```text
+---
+layout: page
+title: Contact
+permalink: /contact/
+---
+```
+
+Step 3. Add the content of the page. For example,
+
+```text
+Work
+Affiliation Name<br />
+Address<br />
+Phone number<br />
+Email address
+```
+
+The full text file is:
+
+```text
+---
+layout: page
+title: Contact
+permalink: /contact/
+---
+Work
+Affiliation Name<br />
+Address<br />
+Phone number<br />
+Email address
+```
+
+Step 4. Run the local web server.
+
+Go to `http://localhost:4000' on a web browser.
+
+Step 5. Check the homepage. You should see `Contact` next to `About`.
+
+<img src='images/github_io-jekyll-your_asesome_title-contact_page-top_part.png'>
+
+Step 5. Click the create page.
+
+In this example, click `Contact` and the following page shows up.
+
+<img src='images/github_io-jekyll-your_asesome_title-contact_page.png'>
+
+#### Adding an image (to the page)
+
+Say you want to add an image file `photo-t-bamboo_forest.jpg` to `Contact` page.
+
+Step 1. Create a directory `assets` and its sub-directory `images`.
+
+Step 2. Move the image file to the sub-directory `assets/images`.
+
+```bash
+assets/
+└── images
+    └── photo-t-bamboo_forest.jpg
+```
+
+Step 3. Reference the path to the image file in the markdown file `contact.md`.
+
+```text
+`![test](/assets/images/photo-t-bamboo_forest.jpg)`
+```
+
+**Caution: Start the path to the image file from `/` indicating the project root.**
+
+```text
+Correct: `![test](/assets/images/photo-t-bamboo_forest.jpg)`
+Wrong: `![test](assets/images/photo-t-bamboo_forest.jpg)`
+```
+
+* The path starts without `/`
+  * NOT right.
+    * although the program like `Typora` shows the image. 
+    * The link to the image file is broken on the web site.
+* The path starts with `/`
+  *  This is right.
+    * The link is broken on a program like `Typora`.
+    * But the image is shown on the web site.
+
+The full text of `contact.md` is:
+
+```text
+---
+layout: page
+title: Contact
+permalink: /contact/
+---
+![test](/assets/images/photo-t-bamboo_forest.jpg)
+
+Work
+Affiliation Name<br />
+Address<br />
+Phone number<br />
+Email address
+```
+
+The rendered page is:
+<img src='images/github_io-jekyll-your_asesome_title-contact_page-with_an_image.png'>
+
+### Adding a post
+
+A blog post is created by adding a markdown file to sub-directory `_posts`. For details, refer to  [Jekyll > DOCS > CONTENT > Creating Posts](https://jekyllrb.com/docs/posts/#creating-posts).
+
+#### The file name convention
+
+```text
+YEAR-MONTH-DAY-title.MARKUP
+```
+
+Examples of valid post filenames include
+
+```text
+2011-12-31-new-years-eve-is-awesome.md
+2012-09-12-how-to-write-a-blog.md
+```
+
+In this example,
+
+```text
+2020-12-10-this-is-the-title.md
+```
+
+#### Start with YAML front matter
+
+```text
+---
+layout: post
+title:  "This is the title"
+---
+```
+
+For details, refer to  [Jekyll > DOCS > CONTENT > Front matter](https://jekyllrb.com/docs/front-matter/).
+
+#### Add the content with the markdown format
+
+```text
+# Heading 1
+## Heading 2
+Write down more things below.
+```
+
+#### Rendered page
+
+Simply adding a markdown file `2020-12-10-this-is-the-title.md` to directory `_posts` is enough to create a post.
+
+<img src='images/jekyll-index_html-with_post-this-is-the-title.png'>
+
+The directory and file structure for the above posts is below.
+
+<img src='images/jekyll-index_html-with_post-this-is-the-title-directory_file_structure.png'>
+
+Click the created post `This is the title`.
+
+<img src='images/jekyll-posts-this-is-the-title.png'>
+
+## Next
+
+* [How to create a web site on Github with Jekyll (2)]()
