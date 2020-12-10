@@ -4,15 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+Tae-Hyung "T" Kim, Ph.D.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Principal Research Scientist
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+- 8+ years in Machine Learning, Data Science & Natural Language Processing
+- ML: TensorFlow, scikit-learn, XGBoost, Kubeflow/Kubernetes/Docker/Linux
+- DS: Python, SQL, Pandas, Matplotlib, Seaborn, NLP: NLTK, KoNLPy, text/speech corpus generation
+- English, Korean & Japanese
 
-
-[jekyll-organization]: https://github.com/jekyll
