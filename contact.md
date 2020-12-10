@@ -4,7 +4,7 @@ title: Contact
 permalink: /contact/
 ---
 
-<img src='images/photo-t-bamboo_forest.jpeg'>
+<img src='_sass/images/photo-t-bamboo_forest.jpeg'>
 
 | Seoul                                                        | Social Media                                                 |
 | :----------------------------------------------------------- | :----------------------------------------------------------- |
