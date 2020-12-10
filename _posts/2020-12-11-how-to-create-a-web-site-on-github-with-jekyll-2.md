@@ -13,64 +13,41 @@ This is a part of series:
 * How to create a web site on Github with Jekyll (2)
 * [How to create a web site on Github with Jekyll (3)](2020-12-12-how-to-create-a-web-site-on-github-with-jekyll-3.md)
 
-## Summary: [How to create a web site on Github with Jekyll (1)](2020-12-10-how-to-create-a-web-site-on-github-with-jekyll-1.md)  
 
-The previous post [How to create a web site on Github with Jekyll (1)](2020-12-10-how-to-create-a-web-site-on-github-with-jekyll-1.md) talks about:
 
-* a quick introduction on creating a website on Github with Jekyll
+## Default `_config.yml` 
 
-* installing the requires packages to use a local web server
+```yaml
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
 
-  * `$ bundle exec jekyll server ` in the terminal
-  * http://localhost:4000 in a web browser
+# Site settings
+title: Your awesome title
+email: your-email@domain.com
+description: > # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://yourdomain.com" # the base hostname & protocol for your site
+twitter_username: jekyllrb
+github_username:  jekyll
 
-* creating a simple page by
+# Build settings
+markdown: kramdown
+```
 
-  * creating a file, say `contact.md`, under the project root directory where `index.html` exists
+See how the above configuration is rendered below.
 
-  * starting off with YAML front matter
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/github_io-jekyll-your_asesome_title.png)
 
-    ```text
-    layout: page
-    title: Contact
-    permalink: /contact/
-    ```
-    
-* followed by text in the markdown format
-  
-* creating a simple post
+![](/assets/images/jekyll-about_rendered-default_sample.png)
 
-  * creating a file, say `YEAR-MONTH-DAY-title.MARKUP` under sub-directory `_posts`
-  * starting off with YAML front matter
-
-  ```text
-  ---
-  layout: post
-  title:  "This is the title"
-  ---
-  ```
-
-  * followed by text in the markdown format
-
-* adding an image to a page or post by
-
-  * creating a directory `assets` to store the image files
-
-  ```bash
-  assets/
-  └── images
-      ├── image-1.jpg
-            ...
-      └── image-n.jpg
-  ```
-
-  * referencing the path to an image file like
-
-  ```text
-  ![image-title](/assets/images/image-1.jpg)
-  ```
-
-  * Caution: `/assets/`, not `assets/`
+## Changes made in `_config.yml`
 
 
 
