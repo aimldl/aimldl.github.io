@@ -1,4 +1,8 @@
-# TODO
+---
+layout: page
+title: TODO
+permalink: /todo/
+---
 
 ## 2020-12-10 (Thu)
 
