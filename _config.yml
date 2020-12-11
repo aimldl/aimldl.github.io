@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: AI ML DL U+1F422 KEEP CALM AND CODE ON
+title: AI ML DL
 email: aimldl@naver.com
 description: >- # this means to ignore newlines until "baseurl:"
   Adorable Immature Midget Lagomorph's Dream Land
