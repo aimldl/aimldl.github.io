@@ -18,7 +18,7 @@ email: aimldl@naver.com
 description: >- # this means to ignore newlines until "baseurl:"
   Adorable & Immature Midget Lagomorph's Dream Land
     where technologies especially
-  Artificial Intelligence, Machine Learning & Deep Learning are posted by Tae-Hyung "T" Kim.
+  Artificial Intelligence, Machine Learning & Deep Learning are posted by T Kim.
   Copyright© 2020 All Rights Reserved
 baseurl: "" # the subpath of your site, e.g. /blog
 url: https://aimldl.github.io # the base hostname & protocol for your site, e.g. http://example.com
