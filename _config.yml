@@ -13,12 +13,12 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: AI ML DL
+title: AI ML DL KEEP CALM AND CODE ON
 email: aimldl@naver.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Adorable & Immature Midget Lagomorph's Dream Land
-    where technologies such as 
-  Artificial Intelligence, Machine Learning & Deep Learning are posted by T Kim.
+  Adorable Immature Midget Lagomorph's Dream Land
+    where "T" Kim posts technologies such as 
+  Artificial Intelligence, Machine Learning & Deep Learning.
   Copyright© 2020 All Rights Reserved
 baseurl: "" # the subpath of your site, e.g. /blog
 url: https://aimldl.github.io # the base hostname & protocol for your site, e.g. http://example.com
