@@ -200,22 +200,16 @@ The most efficient way to make the homepage pretty is to use the existing theme 
 2. Look at the list of existing Jekyll themes.
 3. Pick several favorite themes.
 4. Select the candidate themes to test out for the homepage.
-5. Download the candidate themes one by one and see which one you like the most.
+5. Download and apply the candidate themes one by one.
 6. Decide the final theme.
 
 #### Step 1. Have a rough idea of how the homepage should look like
 
-This step requires some thoughts and experiences. Consider the purpose and requirements to make the homepage. To move quickly, have a rough idea and narrow down what you like. The vision for the homepage may be changed as you see the existing Jekyll themes in the next couple of steps.
-
-In my case, I wish to use the homepage as 
-
-* a career portfolio,
-* a front page to access the contents in my GitHub repositories,
-* a tech blog to publish articles in the field of Artificial Intelligence, Machine Learning, and Deep Learning.
+To move quickly, have a rough idea about the homepage and narrow down what you like as you move forward. The vision for the homepage may be changed as you see more existing Jekyll themes in the next couple of steps.
 
 #### Step 2. Look at the list of existing Jekyll themes.
 
-The goal of this step is to find favorite themes which fit to the purpose and requirements for the final version of the homepage. Looking at the existing Jekyll themes may affect the vision of the final version, purpose, and requirements. Feel free to get inspired by the cool designs and functionalities in the list. The rough idea on the vision, purpose, and requirements of the homepage may evolve and become more concrete.
+The goal of this step is to find favorite themes. Feel free to get inspired by the cool designs and functionalities in the [list](http://jekyllthemes.org/). The rough idea on the vision, purpose, and requirements of the homepage may evolve and become more concrete.
 
 Search for `jekyll theme`.
 
@@ -225,33 +219,79 @@ Go to http://jekyllthemes.org/ and look at the list of themes.
 
 #### Step 3. Pick several favorite themes.
 
-Looking around the themes takes time. Make sure to click `demo` and look around the demo website.
+Looking around the themes takes time. Make sure to click `demo` and look at the demo website.
 
 ![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/jekyll_theme-lagrange.png)
 
-Ask yourself whether you like a theme or not. If you like a theme, add it to the list of your favorite themes. Note no theme fits for all the homepage requirements. My favorite themes in all 23 pages are narrowed down to:
+Ask yourself whether you like a theme or not. If you like a theme, add it to the list of your favorites. Note no theme fits for all the homepage requirements. There are many themes in 23 pages. My favorite themes are narrowed down to six themes. 
 
-https://business-jekyll-theme.github.io/
+The demo pages of the six favorite themes are:
 
-https://lenpaul.github.io/Lagrange/
-
-https://volny.github.io/stylish-portfolio-jekyll/
-
-https://binai.in/clean/
+* https://business-jekyll-theme.github.io/
+* https://alainpham.github.io/
+* https://hydrogen.atlinker.cn/
+* https://lenpaul.github.io/Lagrange/
+* https://volny.github.io/stylish-portfolio-jekyll/
+* https://binai.in/clean/
 
 #### Step 4. Select the candidate themes to test out for the homepage.
 
+The goal of this step is to find candidate themes which fit to the purpose and requirements of the homepage. Looking at the existing Jekyll themes might have affected the rough initial vision of the homepage. It is time to consider the purpose and requirements of the homepage. 
 
+In my case, I decided to create a homepage for  
 
+* a career portfolio,
+* a tech blog to publish articles in the field of Artificial Intelligence, Machine Learning, and Deep Learning.
 
+However it will be convenient if I can use the homepage as:
 
+* a front page to organize the contents in my GitHub repositories,
+* a single point of reference, e.g. "Go to my homepage to see blah-blah-blah." or "The tutorial is at http://my.homepage/this_is_the_tutorial. "
 
+I like these more than the rest among the favorite themes.
 
+1. https://volny.github.io/stylish-portfolio-jekyll/
+2. https://business-jekyll-theme.github.io/
 
+I didn't like the following themes as much as two finalists.
 
+https://binai.in/clean/
 
+I liked this design the most, but the mobile version of the homepage gets corrupted on my iPhone 7 plus. `stylish-portfolio-jekyll` works perfectly both on a PC and a mobile phone. So I dropped this theme.
+
+https://alainpham.github.io/ and https://hydrogen.atlinker.cn/
+
+These themes were not my first choice. The homepage does not look as clean as either `clean` or `stylish-portfolio-jekyll` themes. But the `TAGS` page seems convenient.
+
+https://lenpaul.github.io/Lagrange/
+
+I didn't like the design after looking at `clean` and `stylish-portfolio-jekyll` themes.
+
+##### Step 5. Download and apply the candidate themes one by one.
+
+##### Skylish Portfolio
+
+Go to http://jekyllthemes.org/themes/stylish-portfolio/
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/jekyllthemes_org-stylish_portfolio-homepage.png)
+
+Click the `Download` button and `stylish-portfolio-jekyll-master.zip` will be downloaded to your `Download` folder for the web browser.
+
+Uncompress the downloaded file and a directory `stylish-portfolio-jekyll-master` will be created. 
 
 ![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/ubuntu_20_04-files-home_github_aimldl_github_io-files_at_the_beginning.png)
+
+
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/
+
+)
+
+
+
+Step 6. Decide the final theme.
+
+see which one you like the most.
 
 ## Next
 
