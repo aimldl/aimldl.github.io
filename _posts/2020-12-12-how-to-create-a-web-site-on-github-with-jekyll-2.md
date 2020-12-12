@@ -21,7 +21,9 @@ This is a part of series:
 
 
 
-## The default configuration
+## How to change the configuration of the homepage 
+
+### The default configuration
 
 `_config.yml` consists of the core part and comments. I found the comments look different when I switched from a machine with Ubuntu 18.04 to one with Ubuntu 20.04. However the core part remains more or like the same.
 
@@ -38,7 +40,7 @@ This is a part of series:
 | theme            | minima                                                       |
 | plugins          | - jekyll-feed                                                |
 
-### The default `_config.yml`
+#### The default `_config.yml`
 
 ```yaml
 # Welcome to Jekyll!
@@ -86,7 +88,7 @@ plugins:
 #   - vendor/ruby/
 ```
 
-## Rendered pages with the default configuration
+#### Rendered pages with the default configuration
 
 See how the above configuration is rendered with the `minima` theme.
 
@@ -96,11 +98,11 @@ See how the above configuration is rendered with the `minima` theme.
 
 ![](/assets/images/jekyll-about_rendered-default_sample.png)
 
-## The new `_config.yml`
+### The new `_config.yml`
 
 The default `_config.yml` is edited with a text editor and several changes are made. 
 
-### Default Configuration vs. Changes
+#### Default Configuration vs. Changes
 
 | Variables                  | Default                                                      | Changes                                                      |
 | -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -124,7 +126,7 @@ The default `_config.yml` is edited with a text editor and several changes are m
 | exclude_from_localization  |                                                              | ['javascript', 'images', 'css']                              |
 | parallel_localization      |                                                              | false                                                        |
 
-### The new `_config.yml`
+#### The new `_config.yml`
 
 ```yaml
 # Welcome to Jekyll!
@@ -184,11 +186,72 @@ parallel_localization: false
 
 ```
 
-## Changes made in `_config.yml`
+#### Changes made in `_config.yml`
 
 ![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/jekyll-about_rendered-new_config_yml.png)
 
 
+
+## How to change the default theme `minima`
+
+The most efficient way to make the homepage pretty is to use the existing theme and customize it if necessary. There are many ways to change the default theme `minima` to something else. Here are the steps I took:
+
+1. Have a rough idea of how the homepage should look like.
+2. Look at the list of existing Jekyll themes.
+3. Pick several favorite themes.
+4. Select the candidate themes to test out for the homepage.
+5. Download the candidate themes one by one and see which one you like the most.
+6. Decide the final theme.
+
+#### Step 1. Have a rough idea of how the homepage should look like
+
+This step requires some thoughts and experiences. Consider the purpose and requirements to make the homepage. To move quickly, have a rough idea and narrow down what you like. The vision for the homepage may be changed as you see the existing Jekyll themes in the next couple of steps.
+
+In my case, I wish to use the homepage as 
+
+* a career portfolio,
+* a front page to access the contents in my GitHub repositories,
+* a tech blog to publish articles in the field of Artificial Intelligence, Machine Learning, and Deep Learning.
+
+#### Step 2. Look at the list of existing Jekyll themes.
+
+The goal of this step is to find favorite themes which fit to the purpose and requirements for the final version of the homepage. Looking at the existing Jekyll themes may affect the vision of the final version, purpose, and requirements. Feel free to get inspired by the cool designs and functionalities in the list. The rough idea on the vision, purpose, and requirements of the homepage may evolve and become more concrete.
+
+Search for `jekyll theme`.
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/google_search-jekyll_theme-top_3_results.png)
+
+Go to http://jekyllthemes.org/ and look at the list of themes. 
+
+#### Step 3. Pick several favorite themes.
+
+Looking around the themes takes time. Make sure to click `demo` and look around the demo website.
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/jekyll_theme-lagrange.png)
+
+Ask yourself whether you like a theme or not. If you like a theme, add it to the list of your favorite themes. Note no theme fits for all the homepage requirements. My favorite themes in all 23 pages are narrowed down to:
+
+https://business-jekyll-theme.github.io/
+
+https://lenpaul.github.io/Lagrange/
+
+https://volny.github.io/stylish-portfolio-jekyll/
+
+https://binai.in/clean/
+
+#### Step 4. Select the candidate themes to test out for the homepage.
+
+
+
+
+
+
+
+
+
+
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/ubuntu_20_04-files-home_github_aimldl_github_io-files_at_the_beginning.png)
 
 ## Next
 

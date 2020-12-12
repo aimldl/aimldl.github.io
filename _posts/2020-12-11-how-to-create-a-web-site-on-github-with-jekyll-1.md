@@ -7,17 +7,16 @@ categories: jekyll tutorial
 
 ## Overview
 
-How to create a web site on Github with Jekyll-1
-* The goal is to make a working homepage with the default settings as quickly as possible.
-* The default theme  `minima` is used.
+* How to create a web site on Github with Jekyll-1
+  * The goal is to make a working homepage with the default settings as quickly as possible.
+  * The default theme  `minima` is used.
 
-[How to create a web site on Github with Jekyll-2](2020-12-11-how-to-create-a-web-site-on-github-with-jekyll-2.md)
+* [How to create a web site on Github with Jekyll-2](2020-12-11-how-to-create-a-web-site-on-github-with-jekyll-2.md)
+  * Given the simplest working homepage, the next step is to customize it and make it prettier.
+  * First, the theme  `minima` is used, but configured to my flavor.
+  * A different theme is selected and applied to make the homepage prettier.
 
-* Given the simplest working homepage, the next step is to customize it and make it prettier.
-* First, the theme  `minima` is used, but configured to my flavor.
-* A different theme is selected and applied to make the homepage prettier.
-
-[How to create a web site on Github with Jekyll-3](2020-12-12-how-to-create-a-web-site-on-github-with-jekyll-3.md)
+* [How to create a web site on Github with Jekyll-3](2020-12-12-how-to-create-a-web-site-on-github-with-jekyll-3.md)
 
 ## Summary 
 
