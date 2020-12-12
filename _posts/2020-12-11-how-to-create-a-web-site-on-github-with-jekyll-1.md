@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "How to create a web site on Github with Jekyll (1)"
-date:   2020-12-10 07:30:09 +0900
+date:   2020-12-11 07:30:09 +0900
 categories: jekyll tutorial
 ---
 
@@ -72,11 +72,19 @@ This post will talk about:
 
   * Caution: `/assets/`, not `assets/`
 
+## Prerequisites
+
+* GitHub account
+* GitHub repository for homepage
+
 ## Websites for you and your projects
 
-* For details, see https://pages.github.com/
+Assumptions
 
-Note directory `~/github` has already been created.
+* A GitHub repository for homepage is created.
+* In a local machine, directory `~/github` has been created.
+
+The following commands are used to set up the repository `aimldl/aimldl.github.io` on a machine. My GitHub account is `aimldl` and the repository for homepage is `aimldl.github.io`. For details, see https://pages.github.com/
 
 ```bash
 $ cd ~/github

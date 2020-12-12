@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Appendix A. Fixing the errors in Install the jekyll and bundler."
-date:   2020-12-10 01:01:01 +0900
+date:   2020-12-11 01:01:01 +0900
 categories: jekyll tutorial
 ---
 
