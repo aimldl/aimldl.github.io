@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: front
 title:  "This is the title"
 date:   2020-12-10
 categories: jekyll tutorial

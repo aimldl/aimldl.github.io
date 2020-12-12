@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: front
 title:  "Appendix B. Fixing the errors in the bundle exec jekyll serve command"
 date:   2020-12-11 00:00:01 +0900
 categories: jekyll tutorial

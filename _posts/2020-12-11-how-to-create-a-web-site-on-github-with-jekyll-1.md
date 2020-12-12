@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: front
 title:  "How to create a web site on Github with Jekyll-1"
 date:   2020-12-11 07:30:09 +0900
 categories: jekyll tutorial

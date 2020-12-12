@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: front
 title:  "How to create a web site on Github with Jekyll-2"
 date:   2020-12-12 22:35:12 +0900
 categories: jekyll tutorial
@@ -200,8 +200,12 @@ The most efficient way to make the homepage pretty is to use the existing theme 
 2. Look at the list of existing Jekyll themes.
 3. Pick several favorite themes.
 4. Select the candidate themes to test out for the homepage.
-5. Download and apply the candidate themes one by one.
-6. Decide the final theme.
+5. Download a candidate theme.
+6. Back up `_config.yml` to other directory.
+7. Copy the files into the directory where the files for the homepage repository exist.
+8. Set up and run the local web server.
+9. 
+10. Decide the final theme.
 
 #### Step 1. Have a rough idea of how the homepage should look like
 
@@ -267,7 +271,7 @@ https://lenpaul.github.io/Lagrange/
 
 I didn't like the design after looking at `clean` and `stylish-portfolio-jekyll` themes.
 
-##### Step 5. Download and apply the candidate themes one by one.
+##### Step 5. Download a candidate theme.
 
 ##### Skylish Portfolio
 
@@ -279,13 +283,253 @@ Click the `Download` button and `stylish-portfolio-jekyll-master.zip` will be do
 
 Uncompress the downloaded file and a directory `stylish-portfolio-jekyll-master` will be created. 
 
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/ubuntu_20_04-files-home-download-with_stylish_portfolio.png)
+
+The directory `stylish-portfolio-jekyll-master` contains the following files.
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/ubuntu_20_04-files-home-download-stylish-portfolio-jekyll-master.png)
+
+##### Step 6. Back up `_config.yml` to other directory.
+
+##### Step 7. Copy the files into the directory where the files for the homepage repository exist.
+
+In my case, the files for the homepage are stored under `~/github/aimldl.github.io`. Copy the files for the new theme to the homepage directory. When you are asked to overwrite `_config.yml`, DO NOT replace the existing `_config.yml`.
+
 ![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/ubuntu_20_04-files-home_github_aimldl_github_io-files_at_the_beginning.png)
+
+##### Step 8. Set up and run the local web server 
+
+In the homepage directory, e.g.  `~/github/aimldl.github.io`, starting the local web server with the `bundle exec jekyll server` will fail because 'The minima theme coult not be found.`
+
+Set up to run the local web server.
+
+```bash
+$ rm Gemfile
+$ bundle init
+Writing new Gemfile to /home/aimldl/github/aimldl.github.io/Gemfile
+$ bundle add jekyll
+Fetching gem metadata from https://rubygems.org/..........
+  ...
+Using jekyll 3.8.7
+$ bundle exec jekyll serve
+  ...
+jekyll 3.8.6 | Error:  The minima theme could not be found.
+  ...
+/usr/lib/ruby/vendor_ruby/jekyll/theme.rb:84:in `rescue in gemspec': The minima theme could not be found. (Jekyll::Errors::MissingDependencyException)
+$
+```
+
+`_config.yml` for Stylish Portfolio is below.
+
+```yaml
+# Site settings
+title:
+email:
+description: > # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "" # the base hostname & protocol for your site
+
+# User setting
+owner:
+email:
+facebook_username:
+twitter_username:
+github_username:
+address:
+  - line:
+  - line:
+  # Feel free to add more lines here 
+telephone:
+copyright:
+
+# API settings
+google_api_key:
+
+# Build settings
+markdown: kramdown
+```
+
+Reference the above YAML file and change the existing `_config.yml` like below.
+
+```yaml
+title: AI ML DL
+email: aimldl@naver.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Adorable Immature Midget Lagomorph's Dream Land
+    where T Kim writes tech blog posts in the field of
+  Artificial Intelligence, Machine Learning, Deep Learning.
+  Copyright© 2020 All Rights Reserved
+baseurl: "" # the subpath of your site, e.g. /blog
+url: https://aimldl.github.io # the base hostname & protocol for your site, e.g. http://example.com
+github_username:  aimldl
+linkedin_username:  mrtonnet
+facebook_username:  taehyungtkim
+instagram_username: mrtonsurf
+dockerhub_username: aimldl
+
+# User setting
+owner:
+email:
+facebook_username:
+twitter_username:
+github_username:
+address:
+  - line:
+  - line:
+  # Feel free to add more lines here 
+telephone:
+copyright:
+
+# API settings
+google_api_key:
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+
+# multilang
+# https://dev-yakuza.posstree.com/en/jekyll/configuration/
+languages: ['en', 'ko']
+default_lang: 'en'
+exclude_from_localization: ['javascript', 'images', 'css']
+parallel_localization: false
+```
+
+Now run the local web server
+
+```bash
+$ bundle exec jekyll serve
+```
+
+and go to `http://localhost:4000` in a web browser.
+
+Nothing shows up as follows.
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/jekyll_theme-stylish_portfolio-index_md-layout_home.png)
+
+Back to the terminal, notice the warnings. Layouts for `post`, `default`, `home`, `page` do not exist.
+
+```bash
+$ bundle exec jekyll serve
+  ...
+     Build Warning: Layout 'post' requested in _posts/2020-12-09-welcome-to-jekyll.markdown does not exist.
+     Build Warning: Layout 'post' requested in _posts/2020-12-10-this-is-the-title.md does not exist.
+     Build Warning: Layout 'post' requested in _posts/2020-12-11-appendix_b-how-to-create-a-web-site-on-github-with-jekyll.md does not exist.
+     Build Warning: Layout 'post' requested in _posts/2020-12-11-appendix_a-how-to-create-a-web-site-on-github-with-jekyll.md does not exist.
+     Build Warning: Layout 'post' requested in _posts/2020-12-11-how-to-create-a-web-site-on-github-with-jekyll-1.md does not exist.
+     Build Warning: Layout 'default' requested in 404.html does not exist.
+     Build Warning: Layout 'page' requested in about.md does not exist.
+     Build Warning: Layout 'page' requested in contact.md does not exist.
+     Build Warning: Layout 'home' requested in index.md does not exist.
+     Build Warning: Layout 'page' requested in inspirations.md does not exist.
+     Build Warning: Layout 'page' requested in todo.md does not exist.
+                    done in 0.228 seconds.
+/home/aimldl/.ruby/gems/pathutil-0.16.2/lib/pathutil.rb:502: warning: Using the last argument as keyword parameters is deprecated
+ Auto-regeneration: enabled for '/home/aimldl/github/aimldl.github.io'
+    Server address: http://127.0.0.1:4000/
+  Server running... press ctrl-c to stop.
+```
+
+Open `index.md`. The YAML front matter specifies the layout as `home`.
+
+```text
+---
+layout: home
+---
+```
+
+Check the sub-directory `_layouts`. Only `front.html` exists!
+
+```bash
+$ tree _layouts/
+_layouts/
+└── front.html
+
+0 directories, 1 file
+$
+```
+
+Change the layout to `front`
+
+```text
+---
+layout: front
+---
+```
+
+and refresh the web browser at `http://localhost:4000`.
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/jekyll_theme-stylish_portfolio-index_md-layout_front.png)
+
+It looks like this theme does not use markdown files and the only used layout is `front`. It will be easier to write a post in the markdown format. So I will have to skip this theme. Now let's try the next candidate theme.
+
+##### Business
+
+http://jekyllthemes.org/themes/business-jekyll-theme/
+
+Click the `download` button and `business-jekyll-theme-master.zip` is downloaded. 
+
+Uncompress the downloaded file and copy the files to the homepage directory.
+
+```bash
+$ bundle exec jekyll serve
+Traceback (most recent call last):
+	2: from /usr/bin/bundle:23:in `<main>'
+	1: from /usr/lib/ruby/2.7.0/rubygems.rb:294:in `activate_bin_path'
+/usr/lib/ruby/2.7.0/rubygems.rb:275:in `find_spec_for_exe': Could not find 'bundler' (1.16.0) required by your /home/aimldl/github/aimldl.github.io/Gemfile.lock. (Gem::GemNotFoundException)
+To update to the latest version installed on your system, run `bundle update --bundler`.
+To install the missing version, run `gem install bundler:1.16.0`
+$
+```
+
+The local web server fails to start. Instead of `bundle init` followed by `bundle add jekyll`, run `bundle update --bundler`. 
+
+```
+$ bundle update --bundler
+Fetching gem metadata from https://rubygems.org/..........
+  ...
+Installing minima 2.4.0
+Warning: the lockfile is being updated to Bundler 2, after which you will be unable to return to Bundler 1.
+Bundle updated!
+$
+```
+
+Running `jekyll serve` does not work properly.
+
+```bash
+$ bundle exec jekyll serve
+Traceback (most recent call last):
+  ...
+/usr/lib/ruby/vendor_ruby/jekyll/filters.rb:9:in `<module:Filters>': uninitialized constant Jekyll::Filters::DateFilters (NameError)
+Did you mean?  DateTime
+$
+```
+
+I've fixed error after error, but I still got a new error after fixing a couple errors.
+
+`Dependency Error: Yikes! It looks like you don't have kramdown-parser-gfm or one of its dependencies installed.`
+
+  ...
+
+`/usr/lib/ruby/vendor_ruby/kramdown/parser/html.rb:113:inparse_html_attributes': uninitialized constant Kramdown::Utils::OrderedHash (NameError)`
+
+Probably, I can fix the errors and have the theme work if I put enough time. But I will stop here and move onto another theme.
+
+
 
 
 
 ![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/
 
-)
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/
+
+![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/
 
 
 

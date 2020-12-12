@@ -1,4 +1,4 @@
-layout: post
+layout: front
 title:  [70대 할아버지가 피나게 공부해 한의대 붙었는데 ‘합격 포기’한 이유](https://www.ntdtv.kr/uplifting/%EB%9D%BC%EC%9D%B4%ED%94%84/70%EB%8C%80-%ED%95%A0%EC%95%84%EB%B2%84%EC%A7%80%EA%B0%80-%ED%94%BC%EB%82%98%EA%B2%8C-%EA%B3%B5%EB%B6%80%ED%95%B4-%ED%95%9C%EC%9D%98%EB%8C%80-%EB%B6%99%EC%97%88%EB%8A%94%EB%8D%B0-%ED%95%A9%EA%B2%A9.htm)
 
 date:   2020-12-12 13:17:12 +0900
