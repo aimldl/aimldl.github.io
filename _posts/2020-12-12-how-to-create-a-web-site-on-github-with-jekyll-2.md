@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How to create a web site on Github with Jekyll (2)"
+title:  "How to create a web site on Github with Jekyll-2"
 date:   2020-12-12 22:35:12 +0900
 categories: jekyll tutorial
 ---
@@ -10,12 +10,35 @@ categories: jekyll tutorial
 This is a part of series:
 
 * [How to create a web site on Github with Jekyll (1)](2020-12-10-how-to-create-a-web-site-on-github-with-jekyll-1.md)
+  * The goal is to create a working homepage as quickly as possible.
+  * The default theme  `minima` is used.
 * How to create a web site on Github with Jekyll (2)
+  * The goal of (2) is to customize the simplest working homepage.
+  * Theme  `minima` is used, but configured to my flavor.
 * [How to create a web site on Github with Jekyll (3)](2020-12-12-how-to-create-a-web-site-on-github-with-jekyll-3.md)
 
-## The Default `_config.yml` 
+## Summary
+
+
+
+## The default configuration
 
 `_config.yml` consists of the core part and comments. I found the comments look different when I switched from a machine with Ubuntu 18.04 to one with Ubuntu 20.04. However the core part remains more or like the same.
+
+| Variables        | Default                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| title            | Your awesome title                                           |
+| email            | your-email@example.com                                       |
+| description      | Write an awesome description for your new site here. You can edit this   line in _config.yml. It will appear in your document head meta (for   Google search results) and in your feed.xml site description. |
+| baseurl          | ""                                                           |
+| url              | ""                                                           |
+| twitter_username | jekyllrb                                                     |
+| github_username  | jekyll                                                       |
+| markdown         | kramdown                                                     |
+| theme            | minima                                                       |
+| plugins          | - jekyll-feed                                                |
+
+### The default `_config.yml`
 
 ```yaml
 # Welcome to Jekyll!
@@ -63,13 +86,45 @@ plugins:
 #   - vendor/ruby/
 ```
 
-See how the above configuration is rendered below.
+## Rendered pages with the default configuration
+
+See how the above configuration is rendered with the `minima` theme.
 
 ![](/assets/images/how-to-create-a-web-site-on-github-with-jekyll/github_io-jekyll-your_asesome_title.png)
 
+
+
 ![](/assets/images/jekyll-about_rendered-default_sample.png)
 
-## The New `_config.yml` 
+## The new `_config.yml`
+
+The default `_config.yml` is edited with a text editor and several changes are made. 
+
+### Default Configuration vs. Changes
+
+| Variables                  | Default                                                      | Changes                                                      |
+| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| title                      | Your awesome title                                           | AI ML DL                                                     |
+| email                      | your-email@example.com                                       | aimldl@naver.com                                             |
+| description                | Write an awesome description for your new site here. You can edit this   line in _config.yml. It will appear in your document head meta (for   Google search results) and in your feed.xml site description. | Adorable Immature Midget Lagomorph's Dream Land     where T Kim writes tech blog posts in the field of   Artificial Intelligence, Machine Learning, Deep Learning.   Copyright© 2020 All Rights Reserved |
+| baseurl                    | ""                                                           | ""                                                           |
+| url                        | ""                                                           | https://aimldl.github.io                                     |
+| twitter_username           | jekyllrb                                                     | **(This variable is deleted)**                               |
+| github_username            | jekyll                                                       | aimldl                                                       |
+| markdown                   | kramdown                                                     |                                                              |
+| theme                      | minima                                                       |                                                              |
+| plugins                    | - jekyll-feed                                                |                                                              |
+| **(Added to the changes)** |                                                              |                                                              |
+| linkedin_username          |                                                              | mrtonnet                                                     |
+| facebook_username          |                                                              | taehyungtkim                                                 |
+| instagram_username         |                                                              | mrtonsurf                                                    |
+| dockerhub_username         |                                                              | aimldl                                                       |
+| languages                  |                                                              | ['en', 'ko']                                                 |
+| default_lang               |                                                              | 'en'                                                         |
+| exclude_from_localization  |                                                              | ['javascript', 'images', 'css']                              |
+| parallel_localization      |                                                              | false                                                        |
+
+### The new `_config.yml`
 
 ```yaml
 # Welcome to Jekyll!
